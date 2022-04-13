@@ -1,163 +1,132 @@
 # Graphite_2022_GUICHANE_BENIMELIS
-Ce projet s'inclut au sein de l'UF "Du capteur au banc de test en open source hardware" dont le but est de travailler sur l'ensemble des étapes de réalisation d'un capteur à technologie low-tech. 
+Ce projet s'inscrit dans l'UF **"Du capteur au banc de test"** en 4ème année au département de Génie Physique de l'INSA Toulouse.
+***
+L'objectif de ce dernier est d'élaborer un **capteur de déformation** low-tech à base de graphite. L'application d'une contrainte mécanique sur un capteur en papier sur lequel un dépôt de crayon à papier à été fait, modifie la distance entre les particules de graphite. La conductivité électrique de la couche de graphite est elle aussi modifiée et celà induit une variation de la résistance. C'est cette donnée qui va nous intéresser.
 
-Notre projet se base sur des travaux de recherches d'un capteur de déformation type jauge de contrainte réalisé à partir de graphite. Il est déposé à l'aide d'un crayon B12 sur une feuille de papier. L'objectif est de pouvoir mesurer la résistance de ce capteur et son évolution au cours du temps en fonction de sa déformation. 
+<img src="/Images/Capteur.png">
 
-Pour cela, nous avons réalisé un PCB Shield grace au logiciel Kicad. Il regroupe un circuit analogique de type amplificateur transimpédance, un écran OLED, un encodeur rotatoire et un module Bluetooth. Ce PCB sera pluggé sur un microcontroleur Arduino UNO dans le but d'afficher la valeur de résistance sur l'écran et son évolution dans le temps sur une application smartphone.
-
-Ce dispositif pourra nous permettre par la suite de réaliser une datasheet et un banc de test associé au capteur afin d'en faire une analyse critique.
+L'ensemble des étapes menées pour réaliser ce capteur, en allant du **design** jusqu'à la **réalisation** en passant par le **codage** seront détaillées dans ce dossier.
 
 ## Sommaire
+* [1. Description du projet et détail des livrables](#PremiereSection)
+* [2. Matériel nécessaire](#DeuxiemeSection)
+* [3. Arduino](#TroisiemeSection)
+  * [3.1. Librairies utilisées](#TroisiemeSection1)
+  * [3.2. Code Arduino](#TroisiemeSection1)
+* [4. Application Android](#QuatriemeSection)
+* [5. KICAD](#CinquiemeSection)
+  * [5.1. Symboles et empreintes des composants](#CinquiemeSection1)
+  * [5.2. Schématique](#CinquiemeSection2)
+  * [5.3. Placement des composants](#CinquiemeSection3)
+  * [5.4. Visualisation 3D](#CinquiemeSection4)
+* [6. Fabrication du shield](#SixiemeSection)
+  * [6.1. Réalisation du PCB](#SixiemeSection1)
+  * [6.2. Perçage et soudure](#SixiemeSection2)
+* [7. Simulation](#SeptiemeSection)
+* [8. Banc de test](#HuigtiemeSection)
+  * [8.1. Banc de test](#HuigtiemeSection1)
+  * [8.2. Résultats obtenus](#HuigtiemeSection2)
+  * [8.3. Analyse des résultats et pistes d'améliorations](#HuigtiemeSection3)
+* [9. Datasheet](#NeuviemeSection)
+* [Contacts](#DixiemeSection)
+
+## 1. Détail des livrables et description du projet <a id="PremiereSection"></a>
+Voici l'ensemble des livrables du projet :
+- Un **shield PCB** se connectant à une carte **Arduino UNO** contenant un amplificateur transimpédance, un module bluetooth, un écran OLED et un encodeur rotatoire
+- Un **code Arduino** permettant de mesurer la déformation du capteur et de piloter le module bluetooth, l'écran OLED et l'encodeur rotatoire
+- Une **application Android APK**
+- Un **protocole de test** 
+- La **datasheet** du capteur de déformation
+
+Tout d'abord, nous avons réalisé un code Arduino permettant de vérifier notre montage contenant un amplificateur transimpédance, un écran OLED, un module bluetooth et un encodeur rotatoire. Une fois le montage fonctionnel, nous avons réalisé le design de notre shield sur le logiciel *KICAD*. Nous l'avons ensuite fabriqué et assemblé (lithographie, perçage, soudage des composants, etc.). En parallèle de cela, nous avons utilisé le logiciel *MIT App Inventor* afin de développer une application Android APK, capable de communiquer et recevoir les informations envoyées par le module bluetooth telles que les valeurs de résistance du capteur mesurées. Nous avons par la suite mis en place un banc de test pour pour caractériser les différents types de capteurs en fonction de leur déformation et de la mine de crayon utilisée (HB, B, 9B, etc.). Enfin, nous avons établi une datasheet à l'aide des résulats obtenus par le banc de test.
+
+## 2. Matériel nécessaire
+Pour réaliser le capteur ainsi que le PCB associé, voici la liste des composants nécessaires :
+* x2 résistance 100kΩ
+* x1 résistance 10kΩ
+* x2 résistance 1kΩ
+* x1 capacité 1μF
+* x3 capacité 100nF
+* x1 amplificateur opérationnel LTC1050
+* x1 module Bluetooth HC05
+* x1 encodeur rotatoire KY_040
+* x1 écran OLED I2C 0.91
+
+## 3. Arduino <a id="TroisiemeSection"></a>
+### 3.1. Librairies utilisées <a id="TroisiemeSection1"></a>
+Nous avons utilisé différentes librairies dans notre code Arduino. La librarie ["Adafruit_SSD1306"](/Libraries/Adafruit_SSD1306) permet de contrôller l'écran OLED. La librairie [""Adafruit_BusIO"](/Libraries/Adafruit_busIO) permet de gérer la connexion en I2C et SPI.
+
+### 3.2. Code Arduino <a id="TroisiemeSection2"></a>
+Le code Arduino, développé sous Arduino IDE contient plusieurs fonctionnalités. Il permet d'assurer la communication entre la carte Arduino, qui récupère la valeur de tension renvoyée par le capteur, et les différents éléments ajoutés sur le shield soit : l'écran OLED, le module bluetooth et l'encodeur rotatoire. Différents menus sont accessibles sur l'écran OLED :
+* Le premier menu permet un simple affichage de la résistance
+* Le deuxième menu permet de selectionner le calibre de la résistance affichée sur le menu 1. Cette dernière peut ainsi être affichée en Ω, kΩ ou MΩ.
+* Le troisème menu est un chronomètre permettant de savoir le temps d'execution du programme. C'est à dire le temps depuis le programme à été démarré.
+* Le quatrième menu permet l'affichage d'une image.
+
+Les codes sont contenus dans les dossiers :
+
+## 4. Application Android <a id="QuatriemeSection"></a>
+
+## 5. KICAD <a id="CinquiemeSection"></a>
+### 5.1. Symboles et empreintes des composants <a id="CinquiemeSection1"></a>
+* Amplificateur LTC1050
+
+<img src="/Images/LTC1050_schematic.png" height="200"> <img src="/Images/LTC1050_footprint.png" height="200">
+
+* Ecran OLED
+
+<img src="/Images/OLED_schematic.png" height="200"> <img src="/Images/OLED_footprint.png" height="200">
+
+* Encodeur rotatoire KY_040
+
+<img src="/Images/KY_040_schematic.png" height="200"> <img src="/Images/KY_040_footprint.png" height="200">
+
+* Module bluetooth HC05
+
+<img src="/Images/Bluetooth-HC05_schematic.png" height="200"> <img src="/Images/Bluetooth_HC05_footprint.png" height="200">
+
+
+### 5.2. Schématique <a id="CinquiemeSection2"></a>
+<img src="/Images/Schematic.png">
+
+Une fois les empreintes créées, nous avons réalisé le schéma de notre shield. En haut à droite sont représentées les broches de la carte Arduino. En haut au milieu est représenté l'amplificateur transimpédance et en bas du schématique se trouvent l'écran OLED, le module bluetooth et l'encodeur rotatoire.
+
+### 5.3. Placement des composants <a id="CinquiemeSection3"></a>
+<img src="/Images/PCB_2D.png">
+
+### 5.4. Visualisation 3D <a id="CinquiemeSection4"></a>
+<img src="/Images/PCB_3D.png">
+
+## 6. Fabrication du shield <a id="SixiemeSection"></a>
+<img src="/Images/PCB_front.png" height="300"> <img src="/Images/PCB_back.png" height="300">
+
+### 6.1. Réalisation du PCB <a id="SixiemeSection1"></a> 
+Le PCB a été réalisé au sein des départements de Génie Physique (GP) et Génie Électrique et Informatique (GEI) de l'INSA Toulouse avec l'aide de Catherine Crouzet. Notre PCB à été fabriqué à partir d'une plaquette d'epoxy recouverte d'une fine couche de cuivre (environ 60μm). 
+Nous avons imprimé sur du papier calque la modélisation de notre PCB effectuée sur le logiciel *KICAD* pour ensuite insoler aux UV notre plaquette avec la silouhette par-dessus pendant quelques minutes. À l'aide d'un révelateur, nous avons retiré la partie de la résine non insolée.
+La plaquette d'expoxy est ensuite placée dans un bain de perchlorure de fer pour la gravure, opération durant 7 minutes. Le cuivre non protégé par la résine est ainsi retiré de la plaquette ce qui nous permet d'obtenir le PCB avec les pistes souhaitées.
+Enfin, de l'acétone est appliquée sur la plaquette pour éliminer les dernières traces de résine.
+
+### 6.2. Perçage et soudure <a id="SixiemeSection2"></a> 
+Nous avons ensuite percé notre PCB aux endroits où les différents composants seront insérés à l'aide d'une perceuse électrique. Le diamètre des trous dépend des différents composants à placer :
+* ⌀ 0.8mm : AOP LTC1050, résistances et capacités
+* ⌀ 1.0mm : Broches de connexion de la carte Arduino Uno et headers des différents modules (OLED, bluetooth, encodeur rotatoire)
+* ⌀ 1.2mm : Broches de connexion du capteur de déformation
 
-* [1. Introduction](#1-introduction)
-* [2. Circuit électronique](#2-circuit-électronique)
-  * [2.1. Schéma du circuit](#21-schéma-du-circuit)
-  * [2.2. Réponse transitoire et fréquentielle](#22-réponse-transitoire-et-fréquentielle)
-  * [2.3. Filtres](#23-filtres)
-  * [2.4. Modélisation du capteur](#24-modélisation-du-capteur)
-* [3. KiCad](#3-kicad)
-  * [3.1. Schématique](#31-schématique)
-  * [3.2. Edition du PCB](#32-edition-du-pcb)
-  * [3.3. Visualisation 3D](#33-visualisation-3d)
-* [4. Code Arduino](#4-code-arduino)
-* [5. Application Bluetooth](#5-application-bluetooth)
-* [6. Banc de test](#6-banc-de-test)
-* [7. Datasheet](#7-datasheet)
-* [8. Conclusion](#8-conclusion)
+Notre PCB ayant été imprimé en face avant, certains composants ont été placé en face avant et d'autres en face arrière pour faciliter la soudure et la connexion à la carte Arduino Uno.
 
-## 1. Introduction
+## 7. Simulation <a id="SeptiemeSection"></a> 
+Nous avons simulé notre amplificateur transimpédance sur le logiciel *LTSpice* afin de savoir le comportement que notre circuit aura une fois branché à de réelles valeurs de tension.
 
-Le capteur de déformation que nous avons crée ne représente qu'un outil permettant de récolter des données. Il est indispensable d'y ajouter une électronique et une programmation afin de pouvoir les traiter et en tirer une conclusion. Ce projet se divise donc en plusieurs étapes afin de pouvoir récupérer et analyser au mieux ces valeurs de résistances délivrées.
+## 8. Banc de test <a id="HuigtiemeSection"></a> 
+### 8.1. Banc de test <a id="HuigtiemeSection1"></a> 
 
-- Circuit électronique : Le signal délivré par le capteur est un courant très faible. Nous avons dimensionner un circuit à l'aide du logiciel LTspice qui permet d'amplifier et de lisser le signal à partir d'amplificateur et de filtre. En sortie, nous obtenons un signal compris entre 0 et 5V.
+### 8.2. Résultats obtenus <a id="SeptiemeSection2"></a> 
 
-- PCB SHIELD : Nous avons fabriqué une carte électronique afin de pouvoir y regrouper tous les composants permettant de traiter les données du capteur.
+### 8.3. Analyse des résultats et pistes d'améliorations <a id="HuigtiemeSection3"></a> 
 
-- Code Arduino : Ce programme nous permet de controler les différents composants présents sur notre SHIELD et de transformer notre valeur de tension en une valeur de résistance. Cette valeur sera affichée sur un écran OLED dont ces menus seront controlées par un encodeur rotatoire. A partir d'un module Bluetooth, nous pourrons ensuite envoyer cette donnée sur une application.
+## 9. Datasheet <a id="NeuviemeSection"></a> 
 
-- Application : A partir du site MIT, nous avons codé une application Android qui affiche un graphique de l'évolution de la résistance du capteur en fonction du temps
-
-- Banc de test : 
-
-- Datasheet : 
-
-## 2. Circuit électronique
-
-### 2.1 Schéma du circuit
-
-Dans le cas du capteur de déformation que nous voulons créer, le signal délivré est de courant très faible : de l'ordre de 100 nA. Cela pose un problème car le microcontroleur ne peut pas mesurer directement ce courant à cause d'une impédance d'entrée trop élevée.
-
-La solution mise en place afin de palier ce problème est d'utiliser un amplificateur transimpédance suivi d'un étage amplificateur inverseur. 
-
-Plusieurs filtres sont aussi indidspensables afin de pouvoir extraire l'information utile du capteur : Un filtre capteur afin de limiter les bruits en courant (f1=10Hz) , un filtre passe bas pour les bruits du secteur à 50Hz (f2 = quelques Hz) et un filtre en sortie pour l'échantillonage. Notre Arduino possède une fréquence d'échantillonage de 10kHz environ donc notre signal sera filtré au maximum à 5kHz pour respecter le critère de Shannon.
-
-Schéma suggéré 
-
-
-![Schéma LTSpice](https://user-images.githubusercontent.com/73793387/162968000-c152d43e-fd4d-486b-bd4a-205440b73728.PNG)
-
-Le générateur de tension envoyant un signal sinusoidal et associé à la capacité parasité C5 vient simuler le bruit du secteur.
-
-### 2.2 Réponse transitoire et fréquentielle
-
-En appliquant un PULSE en régime transitoire, on peut bien observer l'action de l'amplificateur transimpédance puis celui de l'étage inverseur :
-
-![Pulse bruité](https://user-images.githubusercontent.com/73793387/162978927-0b9a38e9-b9a7-4a34-8f4f-cad87138f695.PNG)
-
-Notre but est de vérifier si le gain du montage est cohérent avec ce que l'on souhaite obtenir en sortie. Nous allons donc effectuer une simulation fréquentielle en imposant un signal AC :
-
-![Gain basse fréquence](https://user-images.githubusercontent.com/73793387/162979745-465354c0-6dad-428f-a5d5-81b3b237a498.PNG)
-
-On observe un gain à basse fréquence de +140 dB ce qui nous ramène à un gain G=VAOC/Isens = 10^7 ce qui est bien cohérent avec le passage de 100nA à 1V.
-
-### 2.3 Filtres 
-
-Nous avons ensuite étudier les fréquences de coupure de chaque filtre pour voir s'ils jouaient bien leur rôle. Pour cela, on fait des simulations fréquentielles tout en ne laissant qu'une capacité active.
-
-- Filtre d'entrée (R5 associée à C1) 
-
-![f1](https://user-images.githubusercontent.com/73793387/162983671-dac3ddf2-fe29-44b9-8728-85a11c060eb9.PNG)
-
-On obtient à -3dB, une fréquence de coupure de 16Hz ce qui fonctionne plutot bien pour l'entrée du capteur. Cepdendant, notre fc est perturbée par la présence de R1 derrière.
-
-- Filtre pour le secteur (R3 associée à C4)
-
-![f2](https://user-images.githubusercontent.com/73793387/162984106-50c8fdf3-4356-4729-987e-9c3ceff88183.PNG)
-
-On obtient à -3dB, une fréquence de coupure compriise entre 1 et 2Hz ce qui permet de couper le bruit induit par le secteur 50Hz.
-
-- Filtre de sortie (R6 associée à C2)
-
-![f3](https://user-images.githubusercontent.com/73793387/162984476-0ce94bae-8616-4ca0-911c-746682088615.PNG)
-
-On obtient à -3dB, une fréquence de coupure de 1,6kHz ce qui fonctionne bien pour l'échantillonage de l'ARDUINO.
-
-### 2.4 Modélisation du capteur
-
-Pour modéliser notre capteur, nous avons créé un nouveau composant qui est un générateur arbitraire avec une expression du courant : 
-
-![Modèle du capteur](https://user-images.githubusercontent.com/73793387/162986245-80744159-fdca-4151-9016-73fca6219230.PNG)
-
-Ce modèle permet d'appliquer un signal qui varie comme le capteur.
-
-
-## 3. Kicad
-
-Nous avons utilisé le logiciel KiCad qui permet de réaliser des schémas électroniques et des circuits imprimés. Nous avons réalisé un SHIELD où l'ensemble des composants sera déposé dessus. Il sera ensuite pluggé directement sur l'arduino. 
-La réalisation d'un PCB se divise en 3 étapes : Le schématique, l'édition du PCB et sa visualisation 3D
-
-### 3.1. Schématique
-
-La base du circuit électronique repose sur la création du schématique. Les symboles et empreintes du module arduino UNO, des résistances et des capacités sont disponibles dans les librairies installées sur KiCad. Cependant, il nous a fallu créer une librairie d'empreinte pour l'ensemble des autres composants. Les empreintes devaient respecter les pins physiques pour que le routage se passe correctement par la suite.
-
-- Ecran OLED
-
-![Empreinte OLED](https://user-images.githubusercontent.com/73793387/162723582-0cb8a084-8cba-4ffc-80e5-ccca75fc2ec3.PNG)
-![Empreintes OLED](https://user-images.githubusercontent.com/73793387/162723694-a676528d-760b-440e-8d62-585c586b7770.PNG)
-
-- Amplificateur LTC
-
-![Empreintes LTC](https://user-images.githubusercontent.com/73793387/162723747-83117335-a6bb-4ccd-a510-e58103e1ffe7.PNG)
-
-![Empreinte LTC](https://user-images.githubusercontent.com/73793387/162723755-c744e28a-7e69-4a47-ba8a-4b794595440a.PNG)
-
-- Module Bluetooth
-
-![Empreinte Bluetooth](https://user-images.githubusercontent.com/73793387/162723837-68ef546b-b78e-4124-99a9-f8c2acfe4e2e.PNG)
-
-![Empreintes Bluetooth](https://user-images.githubusercontent.com/73793387/162723866-dba24d46-015b-4934-8cfa-6d678e749c9a.PNG)
-
-- Encodeur rotatoire
-
-![Empreinte encodeur](https://user-images.githubusercontent.com/73793387/162724427-df1aeda7-7832-4b6b-aee1-ce54f001ea05.PNG)
-
-![Empreintes encodeur](https://user-images.githubusercontent.com/73793387/162724461-75a6bb98-7e36-46ff-b4c4-67c177bf6051.PNG)
-
-- Schématique entière
-
-![Schématique](https://user-images.githubusercontent.com/73793387/162724536-20c92845-da14-4c31-a23f-b9c888aab8ba.PNG)
-
-### 3.2. Edition du PCB
-
-Après avoir associé chaque empreinte à son symbole pour tous les composants, nous avons édité le circuit imprimé. La partie la plus complexe consiste à répartir les composants sur le PCB et router correctement les connexions entre chaque pin.
-
-
-![PCB](https://user-images.githubusercontent.com/73793387/162770627-a9380fcd-636d-430d-b1c6-7890eb1e7de1.PNG)
-
-
-### 3.3. Visualisation 3D
-
-Afin de vérifier si nos composants peuvent bien s'implémenter sur le SHIELD, nous pouvons utiliser la visualisation 3D pour voir s'ils ne se genent pas entre eux ou s'il n'empietent pas sur les pins arduino.
-Les empreintes 3D pour les résistances et capacité sont disponible sur KiCaD. Il faut aller chercher en ligne les empreintes 3D pour le module blutetooth, l'encodeur et l'écran OLED.
-
-![Visu 3D](https://user-images.githubusercontent.com/73793387/162773301-bb5bc7aa-99f0-43fd-9bd5-5bf0034fdfc4.PNG)
-
-## 4. Code Arduino
-
-## 5. Application Bluetooth
-
-## 6. Banc de test
-
-## 7. Datasheet
-
-## 8. Conclusion
+## Contacts <a id="DixiemeSection"></a> 
+Pour toutes questions relatives aux différentes parties du projet, que ce soit du KiCad au code Arduino, n'hésitez pas à nous contacter !
+* Luca Paccard : paccard@insa-toulouse.fr
+* Arthur Lemaire : a_lemair@insa-toulouse.fr
