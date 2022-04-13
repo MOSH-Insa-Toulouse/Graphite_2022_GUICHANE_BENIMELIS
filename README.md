@@ -1,56 +1,52 @@
 # Graphite_2022_GUICHANE_BENIMELIS
-Ce projet s'inscrit dans l'UF **"Du capteur au banc de test"** en 4ème année au département de Génie Physique de l'INSA Toulouse.
+Projet "Capteur de Graphite", dans le contexte de l'UF **"Du capteur au banc de test"**, département de Génie Physique de l'INSA Toulouse.
 ***
-L'objectif de ce dernier est d'élaborer un **capteur de déformation** low-tech à base de graphite. L'application d'une contrainte mécanique sur un capteur en papier sur lequel un dépôt de crayon à papier à été fait, modifie la distance entre les particules de graphite. La conductivité électrique de la couche de graphite est elle aussi modifiée et celà induit une variation de la résistance. C'est cette donnée qui va nous intéresser.
+L'objectif de ce projet est de reprendre les recherches scientifiques sur un capteur low-tech, le **"Pencil Draw Strain Gauges"**. Le fonctionnement de ce capteur est simple. Il suffit de dessiner au crayon à papier sur une feuille et d'appliquer ensuite une contrainte sur celle-ci. La contrainte appliquée va modifiée la distance entre les particules de graphique et par conséquent la résistance au passage du courant. Nous avons donc notre capteur. 
 
-<img src="/Images/Capteur.png">
-
-L'ensemble des étapes menées pour réaliser ce capteur, en allant du **design** jusqu'à la **réalisation** en passant par le **codage** seront détaillées dans ce dossier.
+Nous avons donc décidé de fabriquer nous-même ce capteur et de le tester. Les étapes et le matériel nécessaire à cette réalisation son détaillés ci-dessous. 
 
 ## Sommaire
-* [1. Description du projet et détail des livrables](#PremiereSection)
+* [1. Livrables](#PremiereSection)
 * [2. Matériel nécessaire](#DeuxiemeSection)
-* [3. Arduino](#TroisiemeSection)
-  * [3.1. Librairies utilisées](#TroisiemeSection1)
-  * [3.2. Code Arduino](#TroisiemeSection1)
+* [3. Code Arduino](#TroisiemeSection)
 * [4. Application Android](#QuatriemeSection)
 * [5. KICAD](#CinquiemeSection)
-  * [5.1. Symboles et empreintes des composants](#CinquiemeSection1)
-  * [5.2. Schématique](#CinquiemeSection2)
-  * [5.3. Placement des composants](#CinquiemeSection3)
-  * [5.4. Visualisation 3D](#CinquiemeSection4)
-* [6. Fabrication du shield](#SixiemeSection)
-  * [6.1. Réalisation du PCB](#SixiemeSection1)
-  * [6.2. Perçage et soudure](#SixiemeSection2)
-* [7. Simulation](#SeptiemeSection)
+  * [5.1. Les composants composants](#CinquiemeSection1)
+  * [5.2. La schématique](#CinquiemeSection2)
+  * [5.3. Le placement des composants](#CinquiemeSection3)
+  * [5.4. La visualisation 3D](#CinquiemeSection4)
+* [6. Fabrication du PCB designer sur KICAD](#SixiemeSection)
+* [7. Simulations sous LTspice](#SeptiemeSection)
 * [8. Banc de test](#HuigtiemeSection)
-  * [8.1. Banc de test](#HuigtiemeSection1)
-  * [8.2. Résultats obtenus](#HuigtiemeSection2)
-  * [8.3. Analyse des résultats et pistes d'améliorations](#HuigtiemeSection3)
+  * [8.1. Création du banc](#HuigtiemeSection1)
+  * [8.2. Tests effectués](#HuigtiemeSection2)
 * [9. Datasheet](#NeuviemeSection)
 * [Contacts](#DixiemeSection)
 
-## 1. Détail des livrables et description du projet <a id="PremiereSection"></a>
-Voici l'ensemble des livrables du projet :
-- Un **shield PCB** se connectant à une carte **Arduino UNO** contenant un amplificateur transimpédance, un module bluetooth, un écran OLED et un encodeur rotatoire
-- Un **code Arduino** permettant de mesurer la déformation du capteur et de piloter le module bluetooth, l'écran OLED et l'encodeur rotatoire
+## 1. Livrables <a id="PremiereSection"></a>
+Ce projet sera évalué au sein de l'UF **"Du capteur au banc de test"**. 
+Nous sommes donc amenés à rendre tout un ensemble de livrables que voici:
+- Un **code Arduino** permettant de mesurer la déformation du capteur et de piloter à minima un module bluetooth, un encodeur rotatoire et un écran OLED
+- Une **carte PCB** se connectant au module **Arduino UNO** contenant à minima un amplificateur transimpédance, un module bluetooth, un écran OLED et un encodeur rotatoire
 - Une **application Android APK**
-- Un **protocole de test** 
+- Une **simulation sous LTspice**
+- Un **banc de test** 
 - La **datasheet** du capteur de déformation
 
-Tout d'abord, nous avons réalisé un code Arduino permettant de vérifier notre montage contenant un amplificateur transimpédance, un écran OLED, un module bluetooth et un encodeur rotatoire. Une fois le montage fonctionnel, nous avons réalisé le design de notre shield sur le logiciel *KICAD*. Nous l'avons ensuite fabriqué et assemblé (lithographie, perçage, soudage des composants, etc.). En parallèle de cela, nous avons utilisé le logiciel *MIT App Inventor* afin de développer une application Android APK, capable de communiquer et recevoir les informations envoyées par le module bluetooth telles que les valeurs de résistance du capteur mesurées. Nous avons par la suite mis en place un banc de test pour pour caractériser les différents types de capteurs en fonction de leur déformation et de la mine de crayon utilisée (HB, B, 9B, etc.). Enfin, nous avons établi une datasheet à l'aide des résulats obtenus par le banc de test.
-
 ## 2. Matériel nécessaire
-Pour réaliser le capteur ainsi que le PCB associé, voici la liste des composants nécessaires :
-* x2 résistance 100kΩ
-* x1 résistance 10kΩ
-* x2 résistance 1kΩ
-* x1 capacité 1μF
-* x3 capacité 100nF
-* x1 amplificateur opérationnel LTC1050
-* x1 module Bluetooth HC05
-* x1 encodeur rotatoire KY_040
-* x1 écran OLED I2C 0.91
+Afin de mener à bien ce projet nous avons eu besoin de: 
+
+* 2 résistance 100kΩ
+* 2 résistance 1kΩ
+* 1 résistance 10kΩ
+* 1 capacité 1μF
+* 3 capacité 100nF
+* 1 amplificateur opérationnel LTC1050
+* 1 module Bluetooth HC05
+* 1 écran OLED I2C 0.91
+* 1 encodeur rotatoire KY_040
+* une feuille de papier avec du graphite (crayon à papier) comme ci-dessous
+
 
 ## 3. Arduino <a id="TroisiemeSection"></a>
 ### 3.1. Librairies utilisées <a id="TroisiemeSection1"></a>
