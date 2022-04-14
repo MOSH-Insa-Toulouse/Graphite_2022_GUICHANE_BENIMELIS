@@ -98,10 +98,14 @@ Une fois les composants crées nous les relions entre eux et avec les broches de
 <img width="460" alt="image" src="https://user-images.githubusercontent.com/98837554/163402315-645bc16a-a514-4546-9f56-441b44ba24c2.png">
 
 ### 5.3. Placement des composants <a id="CinquiemeSection3"></a>
-<img src="/Images/PCB_2D.png">
+Nous plaçons ensuite les composants sur le shield et traçons les connexions de sorte que les fils ne se croisent pas. 
+
+<img width="371" alt="image" src="https://user-images.githubusercontent.com/98837554/163403713-bcfc0a7a-aec5-4fe9-b39b-f4e81aa0f183.png">
 
 ### 5.4. Visualisation 3D <a id="CinquiemeSection4"></a>
-<img src="/Images/PCB_3D.png">
+Nous avons enfin téléchargé les modèles 3D de nos composants afin de visualiser notre PCB en 3D. Cela nous permet aussi d'effectuer une dernière vérification et de voir si aucun composant ne se chevauche. 
+
+<img width="410" alt="image" src="https://user-images.githubusercontent.com/98837554/163404554-31852afe-2a49-4ad8-9f45-724db81acd6a.png">
 
 ## 6. Fabrication du shield <a id="SixiemeSection"></a>
 <img src="/Images/PCB_front.png" height="300"> <img src="/Images/PCB_back.png" height="300">
