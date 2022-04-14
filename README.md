@@ -77,8 +77,8 @@ Nous avons modélisé notre shield PCB sur le logiciel KICAD. Pour cela nous avo
 ### 5.1. Les composants <a id="CinquiemeSection1"></a>
 * L'amplificateur LTC1050
 
+<img width="334" alt="image" src="https://user-images.githubusercontent.com/98837554/163401160-f208acc8-349f-49ba-b0c7-000f3a158738.png">
 
-<img src="/Images/LTC1050_schematic.png" height="200"> <img src="/Images/LTC1050_footprint.png" height="200">
 
 * Ecran OLED
 
