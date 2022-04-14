@@ -52,11 +52,7 @@ Afin de mener à bien ce projet nous avons eu besoin de:
 
 
 ## 3. Arduino <a id="TroisiemeSection"></a>
-### 3.1. Librairies utilisées <a id="TroisiemeSection1"></a>
-Nous avons utilisé différentes librairies dans notre code Arduino. La librarie ["Adafruit_SSD1306"](/Libraries/Adafruit_SSD1306) permet de contrôller l'écran OLED. La librairie [""Adafruit_BusIO"](/Libraries/Adafruit_busIO) permet de gérer la connexion en I2C et SPI.
-
-### 3.2. Code Arduino <a id="TroisiemeSection2"></a>
-Le code Arduino permet la communication entre la carte Arduino et les éléments ajoutés sur le shield tel que l'écran OLED, le module bluetooth ou l'encodeur rotatoire. 
+ 
 
 ## 4. Application Android <a id="QuatriemeSection"></a>
 Nous avons ensuite cherché à afficher les valeurs de résistance du capteur sur un téléphone mobile Android. Pour cela nous avons crée une application grâce au site MIT App Inventor. 
@@ -125,7 +121,10 @@ Nous avons ensuite percé notre PCB afin d'y insérer les différents composants
 
 
 ## 7. Simulation sous LTspice <a id="SeptiemeSection"></a> 
-Nous avons simulé notre amplificateur transimpédance sur le logiciel *LTSpice* afin de savoir le comportement que notre circuit aura une fois branché à de réelles valeurs de tension.
+Nous avons simulé notre circuit électronique sur le logiciel LTspice 
+<p align="center">
+<img width="959" alt="image" src="https://user-images.githubusercontent.com/98837554/163421444-e54a7c67-e4bf-4253-9246-cfc406340a29.png">
+<p/>
 
 ## 8. Banc de test <a id="HuigtiemeSection"></a> 
 ### 8.1. Banc de test <a id="HuigtiemeSection1"></a> 
