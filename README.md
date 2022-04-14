@@ -73,8 +73,10 @@ Notre interface comprend:
 </p>
 
 ## 5. KICAD <a id="CinquiemeSection"></a>
-### 5.1. Symboles et empreintes des composants <a id="CinquiemeSection1"></a>
-* Amplificateur LTC1050
+Nous avons modélisé notre shield PCB sur le logiciel KICAD. Pour cela nous avons **designer tous les composants du PCB** (l'aplificateur, l'écran OLED, le module Bluetooth et l'encodeur rotatoire). Nous avons ensuite crée les **connexions** entre tous les composants et avec la carte Arduino sur le logiciel. Enfin nous avons **modélisé la carte PCB** et crée un **modèle 3D** de l'ensemble. 
+### 5.1. Les composants <a id="CinquiemeSection1"></a>
+* L'amplificateur LTC1050
+
 
 <img src="/Images/LTC1050_schematic.png" height="200"> <img src="/Images/LTC1050_footprint.png" height="200">
 
