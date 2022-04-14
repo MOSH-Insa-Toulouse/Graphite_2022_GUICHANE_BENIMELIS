@@ -94,9 +94,9 @@ Nous avons modélisé notre shield PCB sur le logiciel KICAD. Pour cela nous avo
 
 ### 5.2. Schématique <a id="CinquiemeSection2"></a>
 Une fois les composants crées nous les relions entre eux et avec les broches de la carte Arduino. 
-
+<p align="center">
 <img width="460" alt="image" src="https://user-images.githubusercontent.com/98837554/163402315-645bc16a-a514-4546-9f56-441b44ba24c2.png">
-
+</p>
 ### 5.3. Placement des composants <a id="CinquiemeSection3"></a>
 Nous plaçons ensuite les composants sur le shield et traçons les connexions de sorte que les fils ne se croisent pas. 
 
@@ -104,17 +104,17 @@ Nous plaçons ensuite les composants sur le shield et traçons les connexions de
 
 ### 5.4. Visualisation 3D <a id="CinquiemeSection4"></a>
 Nous avons enfin téléchargé les modèles 3D de nos composants afin de visualiser notre PCB en 3D. Cela nous permet aussi d'effectuer une dernière vérification et de voir si aucun composant ne se chevauche. 
-
+<p align="center">
 <img width="410" alt="image" src="https://user-images.githubusercontent.com/98837554/163404554-31852afe-2a49-4ad8-9f45-724db81acd6a.png">
-
+<p/>
 ## 6. Fabrication du shield <a id="SixiemeSection"></a>
 
 Avec l'aide de Catherine Crouzet, nous avons réalisé le PCB à partir d'une plaquette d'époxy recouverte d'une fine couche de cuivre.
 Premièrement nous avons imprimé la modélisation du PCB que nous avions faites sur le logiciel KICAD. Cela joue le rôle de masque lors de l'insolation de la plaquette sous UVs. A l'aide d'unrévélateur nous retirons la partie de la résine qui n'a pas été insolée. Ensuite, la plaquette est placée dans un bain de perchlorure de fer pour la gravure. Le cuivre non protégé par la résine s'enlève et nous obtenons le PCB tel que nous l'avions desingner sur KICAD. 
 Pour éliminer les dernières traces de résine, on lave le PCB à l'acétone. 
-
+<p align="center">
 <img width="300" alt="image" src="https://user-images.githubusercontent.com/98837554/163410624-d3a69000-6d83-496a-a13e-ba1b7dd018cd.png"> <img width="300" alt="image" src="https://user-images.githubusercontent.com/98837554/163410525-d537f93b-4770-4442-b086-9202968aa3f9.png">
-
+<p/>
 
 Nous avons ensuite percé notre PCB afin d'y insérer les différents composants. Le diamètre des trous varie selon les composants à placer :
 * ⌀ 0.8mm : pour l'Amplificateur LTC1050, les résistances et les capacités
