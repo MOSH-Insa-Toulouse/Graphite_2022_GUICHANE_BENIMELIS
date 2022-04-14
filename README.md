@@ -97,10 +97,12 @@ Une fois les composants crées nous les relions entre eux et avec les broches de
 <p align="center">
 <img width="460" alt="image" src="https://user-images.githubusercontent.com/98837554/163402315-645bc16a-a514-4546-9f56-441b44ba24c2.png">
 </p>
+
 ### 5.3. Placement des composants <a id="CinquiemeSection3"></a>
 Nous plaçons ensuite les composants sur le shield et traçons les connexions de sorte que les fils ne se croisent pas. 
-
+<p align="center">
 <img width="371" alt="image" src="https://user-images.githubusercontent.com/98837554/163403713-bcfc0a7a-aec5-4fe9-b39b-f4e81aa0f183.png">
+ </p>
 
 ### 5.4. Visualisation 3D <a id="CinquiemeSection4"></a>
 Nous avons enfin téléchargé les modèles 3D de nos composants afin de visualiser notre PCB en 3D. Cela nous permet aussi d'effectuer une dernière vérification et de voir si aucun composant ne se chevauche. 
@@ -122,7 +124,7 @@ Nous avons ensuite percé notre PCB afin d'y insérer les différents composants
 * ⌀ 1.0mm : Pour les broches de connexion de la carte Arduino Uno et les différents modules (OLED, bluetooth, encodeur rotatoire)
 
 
-## 7. Simulation <a id="SeptiemeSection"></a> 
+## 7. Simulation sous LTspice <a id="SeptiemeSection"></a> 
 Nous avons simulé notre amplificateur transimpédance sur le logiciel *LTSpice* afin de savoir le comportement que notre circuit aura une fois branché à de réelles valeurs de tension.
 
 ## 8. Banc de test <a id="HuigtiemeSection"></a> 
