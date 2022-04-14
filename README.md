@@ -73,7 +73,7 @@ Notre interface comprend:
 </p>
 
 ## 5. KICAD <a id="CinquiemeSection"></a>
-Nous avons modélisé notre shield PCB sur le logiciel KICAD. Pour cela nous avons **designer tous les composants du PCB** (l'aplificateur, l'écran OLED, le module Bluetooth et l'encodeur rotatoire). Nous avons ensuite crée les **connexions** entre tous les composants et avec la carte Arduino sur le logiciel. Enfin nous avons **modélisé la carte PCB** et crée un **modèle 3D** de l'ensemble. 
+Nous avons modélisé notre shield PCB sur le logiciel KICAD. Pour cela nous avons **designer tous les composants du PCB et crée leur empreinte** (l'aplificateur, l'écran OLED, le module Bluetooth et l'encodeur rotatoire). Nous avons ensuite crée les **connexions** entre tous les composants et avec la carte Arduino sur le logiciel. Enfin nous avons **modélisé la carte PCB** et crée un **modèle 3D** de l'ensemble. 
 ### 5.1. Les composants <a id="CinquiemeSection1"></a>
 * L'amplificateur LTC1050
 
@@ -93,9 +93,9 @@ Nous avons modélisé notre shield PCB sur le logiciel KICAD. Pour cela nous avo
 
 
 ### 5.2. Schématique <a id="CinquiemeSection2"></a>
-<img src="/Images/Schematic.png">
+Une fois les composants crées nous les relions entre eux et avec les broches de la carte Arduino. 
 
-Une fois les empreintes créées, nous avons réalisé le schéma de notre shield. En haut à droite sont représentées les broches de la carte Arduino. En haut au milieu est représenté l'amplificateur transimpédance et en bas du schématique se trouvent l'écran OLED, le module bluetooth et l'encodeur rotatoire.
+<img width="460" alt="image" src="https://user-images.githubusercontent.com/98837554/163402315-645bc16a-a514-4546-9f56-441b44ba24c2.png">
 
 ### 5.3. Placement des composants <a id="CinquiemeSection3"></a>
 <img src="/Images/PCB_2D.png">
