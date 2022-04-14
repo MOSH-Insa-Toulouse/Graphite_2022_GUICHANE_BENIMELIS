@@ -107,6 +107,7 @@ Nous avons enfin téléchargé les modèles 3D de nos composants afin de visuali
 <p align="center">
 <img width="410" alt="image" src="https://user-images.githubusercontent.com/98837554/163404554-31852afe-2a49-4ad8-9f45-724db81acd6a.png">
 <p/>
+
 ## 6. Fabrication du shield <a id="SixiemeSection"></a>
 
 Avec l'aide de Catherine Crouzet, nous avons réalisé le PCB à partir d'une plaquette d'époxy recouverte d'une fine couche de cuivre.
