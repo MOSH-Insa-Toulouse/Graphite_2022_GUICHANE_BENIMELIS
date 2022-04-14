@@ -142,6 +142,8 @@ Voici les fonctionnalités des différents composants:
 -C2 avec R6 forment un filtre de sortie 
 -C3 filtre le bruit de l'alimentation
 
+Nous avons calculer les fréquences de courpure des différents filtres:
+
 
 En appliquant un PULSE en régime transitoire, on peut bien observer l'action de l'amplificateur transimpédance puis celui de l'étage inverseur :
 
