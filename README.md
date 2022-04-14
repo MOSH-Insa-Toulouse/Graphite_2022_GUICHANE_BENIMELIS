@@ -77,19 +77,19 @@ Nous avons modélisé notre shield PCB sur le logiciel KICAD. Pour cela nous avo
 ### 5.1. Les composants <a id="CinquiemeSection1"></a>
 * L'amplificateur LTC1050
 
-<img width="334" alt="image" src="https://user-images.githubusercontent.com/98837554/163401160-f208acc8-349f-49ba-b0c7-000f3a158738.png">
+<img width="300" alt="image" src="https://user-images.githubusercontent.com/98837554/163401160-f208acc8-349f-49ba-b0c7-000f3a158738.png">
 
 * L'écran OLED
 
-<img width="194" alt="image" src="https://user-images.githubusercontent.com/98837554/163401706-46fd2dd1-ec94-4548-9da3-912de15763de.png">
+<img width="300" alt="image" src="https://user-images.githubusercontent.com/98837554/163401706-46fd2dd1-ec94-4548-9da3-912de15763de.png">
 
 * L'encodeur rotatoire KY_040
 
-<img width="332" alt="image" src="https://user-images.githubusercontent.com/98837554/163401994-82856cc4-527f-4971-bb78-71ddba364be5.png">
+<img width="300" alt="image" src="https://user-images.githubusercontent.com/98837554/163401994-82856cc4-527f-4971-bb78-71ddba364be5.png">
 
 * Le module bluetooth HC05
 
-<img width="326" alt="image" src="https://user-images.githubusercontent.com/98837554/163401866-f06dca7b-75d8-41d6-840c-57c505550f2c.png">
+<img width="300" alt="image" src="https://user-images.githubusercontent.com/98837554/163401866-f06dca7b-75d8-41d6-840c-57c505550f2c.png">
 
 
 ### 5.2. Schématique <a id="CinquiemeSection2"></a>
@@ -113,7 +113,7 @@ Avec l'aide de Catherine Crouzet, nous avons réalisé le PCB à partir d'une pl
 Premièrement nous avons imprimé la modélisation du PCB que nous avions faites sur le logiciel KICAD. Cela joue le rôle de masque lors de l'insolation de la plaquette sous UVs. A l'aide d'unrévélateur nous retirons la partie de la résine qui n'a pas été insolée. Ensuite, la plaquette est placée dans un bain de perchlorure de fer pour la gravure. Le cuivre non protégé par la résine s'enlève et nous obtenons le PCB tel que nous l'avions desingner sur KICAD. 
 Pour éliminer les dernières traces de résine, on lave le PCB à l'acétone. 
 
-<img width="389" alt="image" src="https://user-images.githubusercontent.com/98837554/163410624-d3a69000-6d83-496a-a13e-ba1b7dd018cd.png"> <img width="273" alt="image" src="https://user-images.githubusercontent.com/98837554/163410525-d537f93b-4770-4442-b086-9202968aa3f9.png">
+<img width="300" alt="image" src="https://user-images.githubusercontent.com/98837554/163410624-d3a69000-6d83-496a-a13e-ba1b7dd018cd.png"> <img width="300" alt="image" src="https://user-images.githubusercontent.com/98837554/163410525-d537f93b-4770-4442-b086-9202968aa3f9.png">
 
 
 Nous avons ensuite percé notre PCB afin d'y insérer les différents composants. Le diamètre des trous varie selon les composants à placer :
