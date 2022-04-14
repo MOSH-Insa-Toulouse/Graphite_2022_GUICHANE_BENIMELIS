@@ -121,6 +121,50 @@ Nous avons ensuite percé notre PCB afin d'y insérer les différents composants
 
 
 ## 7. Simulation sous LTspice <a id="SeptiemeSection"></a> 
+Le capteur de graphite que nous voulons créer délivre un signal de courant très faible, d'environ 100 nA. Le microcontroleur ne peut donc pas mesurer directement ce courant. Nous choisissons donc d'utiliser un amplificateur transimpédance suivi d'un étage amplificateur inverseur. 
+
+Plusieurs filtres sont aussi indidspensables afin de pouvoir extraire l'information utile du capteur : Un filtre capteur afin de limiter les bruits en courant (f1=10Hz) , un filtre passe bas pour les bruits du secteur à 50Hz (f2 = quelques Hz) et un filtre en sortie pour l'échantillonage. Notre Arduino possède une fréquence d'échantillonage de 10kHz environ donc notre signal sera filtré au maximum à 5kHz pour respecter le critère de Shannon.
+
+Schéma suggéré 
+
+
+![Schéma LTSpice](https://user-images.githubusercontent.com/73793387/162968000-c152d43e-fd4d-486b-bd4a-205440b73728.PNG)
+
+Le générateur de tension envoyant un signal sinusoidal et associé à la capacité parasité C5 vient simuler le bruit du secteur.
+
+### 2.2 Réponse transitoire et fréquentielle
+
+En appliquant un PULSE en régime transitoire, on peut bien observer l'action de l'amplificateur transimpédance puis celui de l'étage inverseur :
+
+![Pulse bruité](https://user-images.githubusercontent.com/73793387/162978927-0b9a38e9-b9a7-4a34-8f4f-cad87138f695.PNG)
+
+Notre but est de vérifier si le gain du montage est cohérent avec ce que l'on souhaite obtenir en sortie. Nous allons donc effectuer une simulation fréquentielle en imposant un signal AC :
+
+![Gain basse fréquence](https://user-images.githubusercontent.com/73793387/162979745-465354c0-6dad-428f-a5d5-81b3b237a498.PNG)
+
+On observe un gain à basse fréquence de +140 dB ce qui nous ramène à un gain G=VAOC/Isens = 10^7 ce qui est bien cohérent avec le passage de 100nA à 1V.
+
+### 2.3 Filtres 
+
+Nous avons ensuite étudier les fréquences de coupure de chaque filtre pour voir s'ils jouaient bien leur rôle. Pour cela, on fait des simulations fréquentielles tout en ne laissant qu'une capacité active.
+
+- Filtre d'entrée (R5 associée à C1) 
+
+![f1](https://user-images.githubusercontent.com/73793387/162983671-dac3ddf2-fe29-44b9-8728-85a11c060eb9.PNG)
+
+On obtient à -3dB, une fréquence de coupure de 16Hz ce qui fonctionne plutot bien pour l'entrée du capteur. Cepdendant, notre fc est perturbée par la présence de R1 derrière.
+
+- Filtre pour le secteur (R3 associée à C4)
+
+![f2](https://user-images.githubusercontent.com/73793387/162984106-50c8fdf3-4356-4729-987e-9c3ceff88183.PNG)
+
+On obtient à -3dB, une fréquence de coupure compriise entre 1 et 2Hz ce qui permet de couper le bruit induit par le secteur 50Hz.
+
+- Filtre de sortie (R6 associée à C2)
+
+![f3](https://user-images.githubusercontent.com/73793387/162984476-0ce94bae-8616-4ca0-911c-746682088615.PNG)
+
+On obtient à -3dB, une fréquence de coupure de 1,6kHz ce qui fonctionne bien pour l'échantillonage de l'ARDUINO.
 Nous avons simulé notre circuit électronique sur le logiciel LTspice 
 <p align="center">
 <img width="959" alt="image" src="https://user-images.githubusercontent.com/98837554/163421444-e54a7c67-e4bf-4253-9246-cfc406340a29.png">
