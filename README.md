@@ -3,7 +3,7 @@ Projet "Capteur de Graphite", dans le contexte de l'UF **"Du capteur au banc de 
 ***
 L'objectif de ce projet est de reprendre les recherches scientifiques sur un capteur low-tech, le **"Pencil Draw Strain Gauges"**. Le fonctionnement de ce capteur est simple. Il suffit de dessiner au crayon à papier sur une feuille et d'appliquer ensuite une contrainte sur celle-ci. La contrainte appliquée va modifiée la distance entre les particules de graphique et par conséquent la résistance au passage du courant. Nous avons donc notre capteur. 
 
-<img src="C:\Users\Marie\OneDrive - insa-toulouse.fr\Documents\Insa\4ème année\2nd semestre\Capteur\Dossier final\Github\papier graphite.png">
+<img width="466" alt="papier graphite" src="https://user-images.githubusercontent.com/98837554/163389962-011f1dfb-cacf-4c84-9b36-a27d5e313081.png">
 
 Nous avons donc décidé de fabriquer nous-même ce capteur et de le tester. Les étapes et le matériel nécessaire à cette réalisation son détaillés ci-dessous. 
 
@@ -58,6 +58,7 @@ Nous avons utilisé différentes librairies dans notre code Arduino. La librarie
 Le code Arduino permet la communication entre la carte Arduino et les éléments ajoutés sur le shield tel que l'écran OLED, le module bluetooth ou l'encodeur rotatoire. 
 
 ## 4. Application Android <a id="QuatriemeSection"></a>
+Nous avons ensuite cherché à afficher les valeurs de résistance du capteur sur un téléphone mobile Android. Pour cela nous avons crée une application grâce au site MIT App Inventor. 
 
 ## 5. KICAD <a id="CinquiemeSection"></a>
 ### 5.1. Symboles et empreintes des composants <a id="CinquiemeSection1"></a>
