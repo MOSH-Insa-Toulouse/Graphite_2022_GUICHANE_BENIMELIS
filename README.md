@@ -108,21 +108,18 @@ Nous avons enfin téléchargé les modèles 3D de nos composants afin de visuali
 <img width="410" alt="image" src="https://user-images.githubusercontent.com/98837554/163404554-31852afe-2a49-4ad8-9f45-724db81acd6a.png">
 
 ## 6. Fabrication du shield <a id="SixiemeSection"></a>
-<img src="/Images/PCB_front.png" height="300"> <img src="/Images/PCB_back.png" height="300">
 
-### 6.1. Réalisation du PCB <a id="SixiemeSection1"></a> 
-Le PCB a été réalisé au sein des départements de Génie Physique (GP) et Génie Électrique et Informatique (GEI) de l'INSA Toulouse avec l'aide de Catherine Crouzet. Notre PCB à été fabriqué à partir d'une plaquette d'epoxy recouverte d'une fine couche de cuivre (environ 60μm). 
-Nous avons imprimé sur du papier calque la modélisation de notre PCB effectuée sur le logiciel *KICAD* pour ensuite insoler aux UV notre plaquette avec la silouhette par-dessus pendant quelques minutes. À l'aide d'un révelateur, nous avons retiré la partie de la résine non insolée.
-La plaquette d'expoxy est ensuite placée dans un bain de perchlorure de fer pour la gravure, opération durant 7 minutes. Le cuivre non protégé par la résine est ainsi retiré de la plaquette ce qui nous permet d'obtenir le PCB avec les pistes souhaitées.
-Enfin, de l'acétone est appliquée sur la plaquette pour éliminer les dernières traces de résine.
+Avec l'aide de Catherine Crouzet, nous avons réalisé le PCB à partir d'une plaquette d'époxy recouverte d'une fine couche de cuivre.
+Premièrement nous avons imprimé la modélisation du PCB que nous avions faites sur le logiciel KICAD. Cela joue le rôle de masque lors de l'insolation de la plaquette sous UVs. A l'aide d'unrévélateur nous retirons la partie de la résine qui n'a pas été insolée. Ensuite, la plaquette est placée dans un bain de perchlorure de fer pour la gravure. Le cuivre non protégé par la résine s'enlève et nous obtenons le PCB tel que nous l'avions desingner sur KICAD. 
+Pour éliminer les dernières traces de résine, on lave le PCB à l'acétone. 
 
-### 6.2. Perçage et soudure <a id="SixiemeSection2"></a> 
-Nous avons ensuite percé notre PCB aux endroits où les différents composants seront insérés à l'aide d'une perceuse électrique. Le diamètre des trous dépend des différents composants à placer :
-* ⌀ 0.8mm : AOP LTC1050, résistances et capacités
-* ⌀ 1.0mm : Broches de connexion de la carte Arduino Uno et headers des différents modules (OLED, bluetooth, encodeur rotatoire)
-* ⌀ 1.2mm : Broches de connexion du capteur de déformation
+![image](https://user-images.githubusercontent.com/98837554/163409758-a5501eba-0b1b-49b6-a2ee-e5661c08e221.png) ![image](https://user-images.githubusercontent.com/98837554/163409899-708fda0a-92ca-4e4e-88ea-01783da9cce6.png)
 
-Notre PCB ayant été imprimé en face avant, certains composants ont été placé en face avant et d'autres en face arrière pour faciliter la soudure et la connexion à la carte Arduino Uno.
+
+Nous avons ensuite percé notre PCB afin d'y insérer les différents composants. Le diamètre des trous varie selon les composants à placer :
+* ⌀ 0.8mm : pour l'Amplificateur LTC1050, les résistances et les capacités
+* ⌀ 1.0mm : Pour les broches de connexion de la carte Arduino Uno et les différents modules (OLED, bluetooth, encodeur rotatoire)
+
 
 ## 7. Simulation <a id="SeptiemeSection"></a> 
 Nous avons simulé notre amplificateur transimpédance sur le logiciel *LTSpice* afin de savoir le comportement que notre circuit aura une fois branché à de réelles valeurs de tension.
