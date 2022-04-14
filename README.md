@@ -60,6 +60,17 @@ Le code Arduino permet la communication entre la carte Arduino et les éléments
 
 ## 4. Application Android <a id="QuatriemeSection"></a>
 Nous avons ensuite cherché à afficher les valeurs de résistance du capteur sur un téléphone mobile Android. Pour cela nous avons crée une application grâce au site MIT App Inventor. 
+Notre interface comprend:
+- Un bouton de connexion au bluetooth et devient vert quand la connexion est établie ou rouge quand elle ne l'ai pas
+- Un menu déroulant qui permet de choisir ce que l'on veut afficher (valeur de la résistance, graphe de la résistance en fonction du temps ou les deux)
+- La valeur de la résistance du capteur de graphène
+- Un graphe ou s'affiche le tracé de la résistance du capteur en fonction du temps
+- Un bouton "Reset" qui permet d'effacer le graphe 
+- Une information sur les bits contenus dans le buffer
+
+<p align="center">
+<img width="254" alt="image" src="https://user-images.githubusercontent.com/98837554/163391196-81fc7854-eb26-422d-8320-28e765e18411.png">
+</p>
 
 ## 5. KICAD <a id="CinquiemeSection"></a>
 ### 5.1. Symboles et empreintes des composants <a id="CinquiemeSection1"></a>
