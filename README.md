@@ -121,18 +121,27 @@ Nous avons ensuite percé notre PCB afin d'y insérer les différents composants
 
 
 ## 7. Simulation sous LTspice <a id="SeptiemeSection"></a> 
-Le capteur de graphite que nous voulons créer délivre un signal de courant très faible, d'environ 100 nA. Le microcontroleur ne peut donc pas mesurer directement ce courant. Nous choisissons donc d'utiliser un amplificateur transimpédance suivi d'un étage amplificateur inverseur. 
+Le capteur de graphite que nous voulons créer délivre un signal de courant très faible, d'environ 100 nA. Le microcontroleur ne peut donc pas mesurer directement ce courant. Nous choisissons donc d'utiliser un amplificateur transimpédance suivi de plusieurs filtres afin que ce faible signal ne soit pas perturbé par le bruit.
 
-Plusieurs filtres sont aussi indidspensables afin de pouvoir extraire l'information utile du capteur : Un filtre capteur afin de limiter les bruits en courant (f1=10Hz) , un filtre passe bas pour les bruits du secteur à 50Hz (f2 = quelques Hz) et un filtre en sortie pour l'échantillonage. Notre Arduino possède une fréquence d'échantillonage de 10kHz environ donc notre signal sera filtré au maximum à 5kHz pour respecter le critère de Shannon.
+Nous devons aussi prendre en compte les caractéristiques de la carte Arduino que nous utilisons:
+- Résolution: 10-12 bits
+- Vref: 1,1V to 5,0V
+- Impédence maximale: 1kOhm-10kOhm
+- Fréquence d'échantillonage max: 15kHz-2,4MHz
 
-Schéma suggéré 
+Voici le schéma que nous avons réalisé:
+<p align="center">
+<img width="959" alt="image" src="https://user-images.githubusercontent.com/98837554/163421444-e54a7c67-e4bf-4253-9246-cfc406340a29.png">
+<p/>
 
+Voici les fonctionnalités des différents composants: 
+-R5 protège l'amplificateur opérationnel contre les décharges électrostatiques, avec C1 forme un filtre pour les bruits en tension
+-C1 avec R1 forment un filtre pour le bruit en courant 
+-R2 est interchangeable pour permettre une adaptation du calibre
+-C4 avec R3 forment un filtre actif
+-C2 avec R6 forment un filtre de sortie 
+-C3 filtre le bruit de l'alimentation
 
-![Schéma LTSpice](https://user-images.githubusercontent.com/73793387/162968000-c152d43e-fd4d-486b-bd4a-205440b73728.PNG)
-
-Le générateur de tension envoyant un signal sinusoidal et associé à la capacité parasité C5 vient simuler le bruit du secteur.
-
-### 2.2 Réponse transitoire et fréquentielle
 
 En appliquant un PULSE en régime transitoire, on peut bien observer l'action de l'amplificateur transimpédance puis celui de l'étage inverseur :
 
@@ -166,9 +175,7 @@ On obtient à -3dB, une fréquence de coupure compriise entre 1 et 2Hz ce qui pe
 
 On obtient à -3dB, une fréquence de coupure de 1,6kHz ce qui fonctionne bien pour l'échantillonage de l'ARDUINO.
 Nous avons simulé notre circuit électronique sur le logiciel LTspice 
-<p align="center">
-<img width="959" alt="image" src="https://user-images.githubusercontent.com/98837554/163421444-e54a7c67-e4bf-4253-9246-cfc406340a29.png">
-<p/>
+
 
 ## 8. Banc de test <a id="HuigtiemeSection"></a> 
 ### 8.1. Banc de test <a id="HuigtiemeSection1"></a> 
