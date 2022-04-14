@@ -113,7 +113,7 @@ Avec l'aide de Catherine Crouzet, nous avons réalisé le PCB à partir d'une pl
 Premièrement nous avons imprimé la modélisation du PCB que nous avions faites sur le logiciel KICAD. Cela joue le rôle de masque lors de l'insolation de la plaquette sous UVs. A l'aide d'unrévélateur nous retirons la partie de la résine qui n'a pas été insolée. Ensuite, la plaquette est placée dans un bain de perchlorure de fer pour la gravure. Le cuivre non protégé par la résine s'enlève et nous obtenons le PCB tel que nous l'avions desingner sur KICAD. 
 Pour éliminer les dernières traces de résine, on lave le PCB à l'acétone. 
 
-![image](https://user-images.githubusercontent.com/98837554/163409758-a5501eba-0b1b-49b6-a2ee-e5661c08e221.png) ![image](https://user-images.githubusercontent.com/98837554/163409899-708fda0a-92ca-4e4e-88ea-01783da9cce6.png)
+<img width="389" alt="image" src="https://user-images.githubusercontent.com/98837554/163410624-d3a69000-6d83-496a-a13e-ba1b7dd018cd.png"> <img width="273" alt="image" src="https://user-images.githubusercontent.com/98837554/163410525-d537f93b-4770-4442-b086-9202968aa3f9.png">
 
 
 Nous avons ensuite percé notre PCB afin d'y insérer les différents composants. Le diamètre des trous varie selon les composants à placer :
