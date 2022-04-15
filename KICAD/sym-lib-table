@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name "New_Library")(type "KiCad")(uri "${KIPRJMOD}/New_Library.kicad_sym")(options "")(descr ""))
+  (lib (name "New_Library_bluetooth")(type "KiCad")(uri "${KIPRJMOD}/New_Library_bluetooth.kicad_sym")(options "")(descr ""))
+)
