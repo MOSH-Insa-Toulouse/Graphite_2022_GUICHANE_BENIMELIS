@@ -193,6 +193,7 @@ Nous avons fait plusieurs mesures en flexion, en donnant à notre capteur une fo
 </p>
 
 ## 9. Datasheet <a id="NeuviemeSection"></a> 
+A l'aide de nos résultats obtenus lors de nos essais avec le banc de test, nous avons pu mettre au point une datasheet de notre capteur. Celle-ci se trouve dans les fichiers à télécharger. 
 
 ## Contacts <a id="DixiemeSection"></a> 
 Pour toutes questions n'hésitez pas à nous contacter !
