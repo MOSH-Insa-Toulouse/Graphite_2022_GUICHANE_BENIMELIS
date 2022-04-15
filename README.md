@@ -11,7 +11,7 @@ Nous avons donc décidé de fabriquer nous-même ce capteur et de le tester. Les
 ## Sommaire
 * [1. Livrables](#PremiereSection)
 * [2. Matériel nécessaire](#DeuxiemeSection)
-* [3. Code Arduino](#TroisiemeSection)
+* [3. Simulation sous LTspice](#TroisiemeSection)
 * [4. Application Android](#QuatriemeSection)
 * [5. KICAD](#CinquiemeSection)
   * [5.1. Les composants](#CinquiemeSection1)
@@ -19,7 +19,7 @@ Nous avons donc décidé de fabriquer nous-même ce capteur et de le tester. Les
   * [5.3. Le placement des composants](#CinquiemeSection3)
   * [5.4. La visualisation 3D](#CinquiemeSection4)
 * [6. Fabrication du PCB designer sur KICAD](#SixiemeSection)
-* [7. Simulations sous LTspice](#SeptiemeSection)
+* [7. Code Arduino](#SeptiemeSection)
 * [8. Banc de test](#HuigtiemeSection)
   * [8.1. Création du banc](#HuigtiemeSection1)
   * [8.2. Tests effectués](#HuigtiemeSection2)
@@ -51,8 +51,59 @@ Afin de mener à bien ce projet nous avons eu besoin de:
 * une feuille de papier avec du graphite (crayon à papier) comme ci-dessous
 
 
-## 3. Arduino <a id="TroisiemeSection"></a>
+## 3. Simulation Sous LTspice <a id="TroisiemeSection"></a>
+Le capteur de graphite que nous voulons créer délivre un signal de courant très faible, d'environ 100 nA. Le microcontroleur ne peut donc pas mesurer directement ce courant. Nous choisissons donc d'utiliser un amplificateur transimpédance suivi de plusieurs filtres afin que ce faible signal ne soit pas perturbé par le bruit.
+
+Nous devons aussi prendre en compte les caractéristiques de la carte Arduino que nous utilisons:
+- Résolution: 10-12 bits
+- Vref: 1,1V to 5,0V
+- Impédence maximale: 1kOhm-10kOhm
+- Fréquence d'échantillonage max: 15kHz-2,4MHz
+
+Voici le schéma que nous avons réalisé:
+<p align="center">
+<img width="959" alt="image" src="https://user-images.githubusercontent.com/98837554/163421444-e54a7c67-e4bf-4253-9246-cfc406340a29.png">
+<p/>
+
+Voici les fonctionnalités des différents composants: 
+-R5 protège l'amplificateur opérationnel contre les décharges électrostatiques, avec C1 forme un filtre pour les bruits en tension
+-C1 avec R1 forment un filtre pour le bruit en courant 
+-R2 est interchangeable pour permettre une adaptation du calibre
+-C4 avec R3 forment un filtre actif
+-C2 avec R6 forment un filtre de sortie 
+-C3 filtre le bruit de l'alimentation
+
+Nous avons calculé les fréquences de courpure des différents filtres:
+- Filtre d'entrée (R5 associée à C1) 
+<p align="center">
+<img width="960" alt="simulation_ac_filtre1" src="https://user-images.githubusercontent.com/98837554/163541380-68267eba-4612-4d09-b9eb-7c492514d345.png">
+</p>
+On obtient à -3dB, une fréquence de coupure de 20Hz ce qui fonctionne plutot bien pour l'entrée du capteur. 
+
+- Filtre actif (R3 associée à C4) 
+<p align="center">
+<img width="959" alt="simulation_ac_filtre2" src="https://user-images.githubusercontent.com/98837554/163541957-834a4d79-2858-4d12-aa25-55f55f7cb285.png">
+</p>
+On obtient à -3dB, une fréquence de coupure de 2Hz qui permet de couper le bruit induit par le secteur 50Hz.
+
+- Filtre de sortie (R6 associée à C2) 
+<p align="center">
+<img width="959" alt="simulation_ac_filtre3" src="https://user-images.githubusercontent.com/98837554/163542460-0e609e20-6055-4db2-8078-0ccc3461a577.png">
+</p>
+On obtient à -3dB, une fréquence de coupure de 1,5kHz ce qui fonctionne bien pour l'échantillonage de l'ARDUINO.
  
+ 
+
+En appliquant un PULSE en régime transitoire, on peut bien observer l'action de l'amplificateur transimpédance puis celui de l'étage inverseur :
+
+![Pulse bruité](https://user-images.githubusercontent.com/73793387/162978927-0b9a38e9-b9a7-4a34-8f4f-cad87138f695.PNG)
+
+Notre but est de vérifier si le gain du montage est cohérent avec ce que l'on souhaite obtenir en sortie. Nous allons donc effectuer une simulation fréquentielle en imposant un signal AC :
+
+![Gain basse fréquence](https://user-images.githubusercontent.com/73793387/162979745-465354c0-6dad-428f-a5d5-81b3b237a498.PNG)
+
+On observe un gain à basse fréquence de +140 dB ce qui nous ramène à un gain G=VAOC/Isens = 10^7 ce qui est bien cohérent avec le passage de 100nA à 1V.
+
 
 ## 4. Application Android <a id="QuatriemeSection"></a>
 Nous avons ensuite cherché à afficher les valeurs de résistance du capteur sur un téléphone mobile Android. Pour cela nous avons crée une application grâce au site MIT App Inventor. 
@@ -120,73 +171,22 @@ Nous avons ensuite percé notre PCB afin d'y insérer les différents composants
 * ⌀ 1.0mm : Pour les broches de connexion de la carte Arduino Uno et les différents modules (OLED, bluetooth, encodeur rotatoire)
 
 
-## 7. Simulation sous LTspice <a id="SeptiemeSection"></a> 
-Le capteur de graphite que nous voulons créer délivre un signal de courant très faible, d'environ 100 nA. Le microcontroleur ne peut donc pas mesurer directement ce courant. Nous choisissons donc d'utiliser un amplificateur transimpédance suivi de plusieurs filtres afin que ce faible signal ne soit pas perturbé par le bruit.
+## 7. Code Arduino <a id="SeptiemeSection"></a> 
 
-Nous devons aussi prendre en compte les caractéristiques de la carte Arduino que nous utilisons:
-- Résolution: 10-12 bits
-- Vref: 1,1V to 5,0V
-- Impédence maximale: 1kOhm-10kOhm
-- Fréquence d'échantillonage max: 15kHz-2,4MHz
-
-Voici le schéma que nous avons réalisé:
-<p align="center">
-<img width="959" alt="image" src="https://user-images.githubusercontent.com/98837554/163421444-e54a7c67-e4bf-4253-9246-cfc406340a29.png">
-<p/>
-
-Voici les fonctionnalités des différents composants: 
--R5 protège l'amplificateur opérationnel contre les décharges électrostatiques, avec C1 forme un filtre pour les bruits en tension
--C1 avec R1 forment un filtre pour le bruit en courant 
--R2 est interchangeable pour permettre une adaptation du calibre
--C4 avec R3 forment un filtre actif
--C2 avec R6 forment un filtre de sortie 
--C3 filtre le bruit de l'alimentation
-
-Nous avons calculé les fréquences de courpure des différents filtres:
-- Filtre d'entrée (R5 associée à C1) 
-<p align="center">
-<img width="960" alt="simulation_ac_filtre1" src="https://user-images.githubusercontent.com/98837554/163541380-68267eba-4612-4d09-b9eb-7c492514d345.png">
-</p>
-On obtient à -3dB, une fréquence de coupure de 20Hz ce qui fonctionne plutot bien pour l'entrée du capteur. 
-
-- Filtre actif (R3 associée à C4) 
-<p align="center">
-<img width="959" alt="simulation_ac_filtre2" src="https://user-images.githubusercontent.com/98837554/163541957-834a4d79-2858-4d12-aa25-55f55f7cb285.png">
-</p>
-On obtient à -3dB, une fréquence de coupure de 2Hz qui permet de couper le bruit induit par le secteur 50Hz.
-
-- Filtre de sprtie (R6 associée à C2) 
-<p align="center">
-<img width="959" alt="simulation_ac_filtre3" src="https://user-images.githubusercontent.com/98837554/163542460-0e609e20-6055-4db2-8078-0ccc3461a577.png">
-</p>
-On obtient à -3dB, une fréquence de coupure de 1,5kHz ce qui fonctionne bien pour l'échantillonage de l'ARDUINO.
-
-
-
-
-En appliquant un PULSE en régime transitoire, on peut bien observer l'action de l'amplificateur transimpédance puis celui de l'étage inverseur :
-
-![Pulse bruité](https://user-images.githubusercontent.com/73793387/162978927-0b9a38e9-b9a7-4a34-8f4f-cad87138f695.PNG)
-
-Notre but est de vérifier si le gain du montage est cohérent avec ce que l'on souhaite obtenir en sortie. Nous allons donc effectuer une simulation fréquentielle en imposant un signal AC :
-
-![Gain basse fréquence](https://user-images.githubusercontent.com/73793387/162979745-465354c0-6dad-428f-a5d5-81b3b237a498.PNG)
-
-On observe un gain à basse fréquence de +140 dB ce qui nous ramène à un gain G=VAOC/Isens = 10^7 ce qui est bien cohérent avec le passage de 100nA à 1V.
 
 
 
 
 ## 8. Banc de test <a id="HuigtiemeSection"></a> 
 ### 8.1. Banc de test <a id="HuigtiemeSection1"></a> 
+Nous avons décidé de créer un banc de test 
 
 ### 8.2. Résultats obtenus <a id="SeptiemeSection2"></a> 
 
-### 8.3. Analyse des résultats et pistes d'améliorations <a id="HuigtiemeSection3"></a> 
 
 ## 9. Datasheet <a id="NeuviemeSection"></a> 
 
 ## Contacts <a id="DixiemeSection"></a> 
-Pour toutes questions relatives aux différentes parties du projet, que ce soit du KiCad au code Arduino, n'hésitez pas à nous contacter !
-* Luca Paccard : paccard@insa-toulouse.fr
-* Arthur Lemaire : a_lemair@insa-toulouse.fr
+Pour toutes questions n'hésitez pas à nous contacter !
+* Marie Bénimélis : benimeli@insa-toulouse.fr
+* Mathys Guichané : guichane@insa-toulouse.fr
