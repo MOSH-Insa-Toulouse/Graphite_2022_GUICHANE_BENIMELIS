@@ -179,7 +179,9 @@ Nous avons ensuite percé notre PCB afin d'y insérer les différents composants
 
 ## 8. Banc de test <a id="HuigtiemeSection"></a> 
 ### 8.1. Banc de test <a id="HuigtiemeSection1"></a> 
-Nous avons décidé de créer un banc de test 
+Nous avons testé notre capteur sur un banc de test que nous avons conçu à partir de feuilles de papier épais. Nous avons fabriqué 7 cylindres de diamètre variable, allant de 5cm à 2cm par pas de 0,5cm. En enrobant les différents cylindres avec notre capteur, nous appliquons une déformation maitrisée que nous pouvons calculer avec la formule : ε = e / (2•R), avec ε la déformation, e l'épaisseur de notre capteur, et R le rayon de courbure appliqué soit le rayon de nos cylindres.
+
+Nous avons décidé de réaliser des mesures de compression (graphite vers le cylindre) du capteur et pas en tension (graphite vers l'extérieur), car bien que ces deux méthodes soient possibles, les valeurs de résistance renvoyées par notre capteur en tension n'étaient pas exploitables.
 
 ### 8.2. Résultats obtenus <a id="SeptiemeSection2"></a> 
 
