@@ -66,12 +66,12 @@ Voici le schéma que nous avons réalisé:
 <p/>
 
 Voici les fonctionnalités des différents composants: 
--R5 protège l'amplificateur opérationnel contre les décharges électrostatiques, avec C1 forme un filtre pour les bruits en tension
--C1 avec R1 forment un filtre pour le bruit en courant 
--R2 est interchangeable pour permettre une adaptation du calibre
--C4 avec R3 forment un filtre actif
--C2 avec R6 forment un filtre de sortie 
--C3 filtre le bruit de l'alimentation
+- R5 protège l'amplificateur opérationnel contre les décharges électrostatiques, avec C1 forme un filtre pour les bruits en tension
+- C1 avec R1 forment un filtre pour le bruit en courant 
+- R2 est interchangeable pour permettre une adaptation du calibre
+- C4 avec R3 forment un filtre actif
+- C2 avec R6 forment un filtre de sortie 
+- C3 filtre le bruit de l'alimentation
 
 Nous avons calculé les fréquences de courpure des différents filtres:
 - Filtre d'entrée (R5 associée à C1) 
