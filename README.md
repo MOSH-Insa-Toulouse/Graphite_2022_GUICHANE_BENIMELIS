@@ -181,6 +181,9 @@ Nous avons ensuite percé notre PCB afin d'y insérer les différents composants
 ### 8.1. Banc de test <a id="HuigtiemeSection1"></a> 
 Nous avons imaginé un banc de test afin de pouvoir tester notre capteur. Nous utilisons un rail sur lequel nous rajoutons deux supports. Entre ces-derniers nous mettrons notre capteur sur une réglette flexible. En faisant varier la distance entre les deux supports, la réglette flexible se courbe. Nous relevons cette courbure et la résistance du capteur associée.
 Nous avons imprimé deux pièces 3D afin de réaliser ce banc de test. 
+<p align="center">
+![image](https://user-images.githubusercontent.com/98837554/163569379-74f50098-2d5c-4b56-9d01-2c0e1dcb66ee.png)
+</p>
 
 ### 8.2. Résultats obtenus <a id="SeptiemeSection2"></a> 
 
