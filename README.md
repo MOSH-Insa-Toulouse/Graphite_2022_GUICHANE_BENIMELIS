@@ -101,20 +101,16 @@ On obtient à -3dB, une fréquence de coupure de 2Hz qui permet de couper le bru
 On obtient à -3dB, une fréquence de coupure de 1,5kHz ce qui fonctionne bien pour l'échantillonage de l'ARDUINO.
 
 En faisant varier C1, nous avons pu observer l'infuence de cette capacité sur l'atténuation globale d'un bruit de courant de 50Hz. 
-- C1= 100n:
--
- 
+- C1= 1u:
+<p align="center">
+<img width="529" alt="image" src="https://user-images.githubusercontent.com/98837554/163641065-caad8153-dde2-4825-a69c-691940c0eabf.png">
+</p>
+-C1=100n:
+<p align="center">
+<img width="572" alt="image" src="https://user-images.githubusercontent.com/98837554/163643246-57700a0b-bc04-400c-982a-ee6651a95a20.png">
+</p>
 
-En appliquant un PULSE en régime transitoire, on peut bien observer l'action de l'amplificateur transimpédance puis celui de l'étage inverseur :
-
-![Pulse bruité](https://user-images.githubusercontent.com/73793387/162978927-0b9a38e9-b9a7-4a34-8f4f-cad87138f695.PNG)
-
-Notre but est de vérifier si le gain du montage est cohérent avec ce que l'on souhaite obtenir en sortie. Nous allons donc effectuer une simulation fréquentielle en imposant un signal AC :
-
-![Gain basse fréquence](https://user-images.githubusercontent.com/73793387/162979745-465354c0-6dad-428f-a5d5-81b3b237a498.PNG)
-
-On observe un gain à basse fréquence de +140 dB ce qui nous ramène à un gain G=VAOC/Isens = 10^7 ce qui est bien cohérent avec le passage de 100nA à 1V.
-
+CONCLURE
 
 ## 4. Application Android <a id="QuatriemeSection"></a>
 Nous avons ensuite cherché à afficher les valeurs de résistance du capteur sur un téléphone mobile Android. Pour cela nous avons crée une application grâce au site MIT App Inventor. 
