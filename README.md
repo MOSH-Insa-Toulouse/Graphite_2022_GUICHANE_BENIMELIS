@@ -73,12 +73,20 @@ Voici les fonctionnalités des différents composants:
 - C2 avec R6 forment un filtre de sortie 
 - C3 filtre le bruit de l'alimentation
 
-Nous avons calculé les fréquences de courpure des différents filtres:
+Nous avons simulé notre circuit dans les **conditions nominales**, c'est à dire sans bruit. Voici la réponse de notre circuit:
+<p align="center">
+<img width="398" alt="image" src="https://user-images.githubusercontent.com/98837554/163636090-f7b55e91-c3a8-494e-a684-dcd89eaaba78.png">
+</p>
+De même sur ce graphe on remarque que **l'offset de l'amplificateur** opérationnel est de 0,5V. Cet offset est accecptable car
+
+L'incidence du **courrant d'entrée** de l'amplificateur est acceptable car: 
+
+Nous avons ensuite calculé les **fréquences de courpure des différents filtres**:
 - Filtre d'entrée (R5 associée à C1) 
 <p align="center">
 <img width="960" alt="simulation_ac_filtre1" src="https://user-images.githubusercontent.com/98837554/163541380-68267eba-4612-4d09-b9eb-7c492514d345.png">
 </p>
-On obtient à -3dB, une fréquence de coupure de 20Hz ce qui fonctionne plutot bien pour l'entrée du capteur. 
+On obtient à -3dB, une fréquence de coupure de 20Hz ce qui fonctionne bien pour l'entrée du capteur. 
 
 - Filtre actif (R3 associée à C4) 
 <p align="center">
@@ -91,7 +99,10 @@ On obtient à -3dB, une fréquence de coupure de 2Hz qui permet de couper le bru
 <img width="959" alt="simulation_ac_filtre3" src="https://user-images.githubusercontent.com/98837554/163542460-0e609e20-6055-4db2-8078-0ccc3461a577.png">
 </p>
 On obtient à -3dB, une fréquence de coupure de 1,5kHz ce qui fonctionne bien pour l'échantillonage de l'ARDUINO.
- 
+
+En faisant varier C1, nous avons pu observer l'infuence de cette capacité sur l'atténuation globale d'un bruit de courant de 50Hz. 
+- C1= 100n:
+-
  
 
 En appliquant un PULSE en régime transitoire, on peut bien observer l'action de l'amplificateur transimpédance puis celui de l'étage inverseur :
