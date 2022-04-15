@@ -101,7 +101,7 @@ Nous plaçons ensuite les composants sur le shield et traçons les connexions de
  </p>
 
 ### 5.4. Visualisation 3D <a id="CinquiemeSection4"></a>
-Nous avons enfin téléchargé les modèles 3D de nos composants afin de visualiser notre PCB en 3D. Cela nous permet aussi d'effectuer une dernière vérification et de voir si aucun composant ne se chevauche. 
+Nous avons enfin téléchargé les modèles 3D de nos composants afin de visualiser notre PCB en 3D. Cela nous permet aussi d'effectuer une dernière vérification et de voir qu'aucuns composants ne se chevauchent. 
 <p align="center">
 <img width="410" alt="image" src="https://user-images.githubusercontent.com/98837554/163404554-31852afe-2a49-4ad8-9f45-724db81acd6a.png">
 <p/>
@@ -142,7 +142,26 @@ Voici les fonctionnalités des différents composants:
 -C2 avec R6 forment un filtre de sortie 
 -C3 filtre le bruit de l'alimentation
 
-Nous avons calculer les fréquences de courpure des différents filtres:
+Nous avons calculé les fréquences de courpure des différents filtres:
+- Filtre d'entrée (R5 associée à C1) 
+<p align="center">
+<img width="960" alt="simulation_ac_filtre1" src="https://user-images.githubusercontent.com/98837554/163541380-68267eba-4612-4d09-b9eb-7c492514d345.png">
+</p>
+On obtient à -3dB, une fréquence de coupure de 20Hz ce qui fonctionne plutot bien pour l'entrée du capteur. 
+
+- Filtre actif (R3 associée à C4) 
+<p align="center">
+<img width="959" alt="simulation_ac_filtre2" src="https://user-images.githubusercontent.com/98837554/163541957-834a4d79-2858-4d12-aa25-55f55f7cb285.png">
+</p>
+On obtient à -3dB, une fréquence de coupure de 2Hz qui permet de couper le bruit induit par le secteur 50Hz.
+
+- Filtre de sprtie (R6 associée à C2) 
+<p align="center">
+<img width="959" alt="simulation_ac_filtre3" src="https://user-images.githubusercontent.com/98837554/163542460-0e609e20-6055-4db2-8078-0ccc3461a577.png">
+</p>
+On obtient à -3dB, une fréquence de coupure de 1,5kHz ce qui fonctionne bien pour l'échantillonage de l'ARDUINO.
+
+
 
 
 En appliquant un PULSE en régime transitoire, on peut bien observer l'action de l'amplificateur transimpédance puis celui de l'étage inverseur :
