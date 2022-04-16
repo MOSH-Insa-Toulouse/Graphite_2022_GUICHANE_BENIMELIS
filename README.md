@@ -54,12 +54,6 @@ Afin de mener à bien ce projet nous avons eu besoin de:
 ## 3. Simulation Sous LTspice <a id="TroisiemeSection"></a>
 Le capteur de graphite que nous voulons créer délivre un signal de courant très faible, d'environ 100 nA. Le microcontroleur ne peut donc pas mesurer directement ce courant. Nous choisissons donc d'utiliser un amplificateur transimpédance pour convertir une variation de courant en variation de tension suivi de plusieurs filtres afin que ce faible signal ne soit pas perturbé par le bruit.
 
-Nous devons aussi prendre en compte les caractéristiques de la carte Arduino que nous utilisons:
-- Résolution: 10-12 bits
-- Vref: 1,1V to 5,0V
-- Impédence maximale: 1kOhm-10kOhm
-- Fréquence d'échantillonage max: 15kHz-2,4MHz
-
 Voici le schéma que nous avons réalisé:
 <p align="center">
 <img width="959" alt="image" src="https://user-images.githubusercontent.com/98837554/163421444-e54a7c67-e4bf-4253-9246-cfc406340a29.png">
@@ -80,10 +74,17 @@ Nous avons simulé notre circuit dans les **conditions nominales**, c'est à dir
 Le capteur est fonctionnel et ne sature pas car la hauteur du plateau est à 1V (inférieur à 5V).
 
 La datasheet de l'amplificateur LTC1050C nous indique que sa tension d'offset est de l'ordre 5 µV et que le maximum d’offset de décalage est de l’ordre se 0,05µV/°C. Ces valeurs nous semblent acceptables. 
-En effet le gain de l’AOP est de 160 dB. Pour une tension d’entrée de 10mV, nous avons donc en sortie 106V. L’offset de sortie est 
-quant à lui de 50V. L’offset est donc négligeable et son incidence est donc acceptable
+En effet le gain de l’AOP est de 160 dB. Pour une tension d’entrée de 10mV, nous avons donc en sortie 106V. L’offset de sortie est quant à lui de 50V. L’offset de l'amplificateur est donc négligeable et son incidence est donc acceptable. 
 
-L'incidence du **courrant d'entrée** de l'amplificateur est acceptable car: 
+De même le courant d’offset indiqué dans la datasheet est de 160 pA. Cette valeur semble acceptable devant le courant circulant dans R1 par exemplequi est de l’ordre de 100 nA. Cette valeur est 625 fois supérieure à la tension d’offset qu’on peut donc négliger. 
+
+Nous devons aussi prendre en compte les caractéristiques de la carte Arduino que nous utilisons:
+- Résolution: 10-13 bits
+- Vref: 1,1V to 5,0V
+- Impédence maximale: 1kOhm-10kOhm
+- Fréquence d'échantillonage max: 15kHz
+
+Si nous utilisons l'Arduinon Uno à sa fréquence max (15kHz). La limite de repliement autrement appelée fréquence de Nyquist, est égale à la moitié de la fréquence d'échantillonage choisie, ici 15kHz, donc 7,5kHz. 
 
 Nous avons ensuite calculé les **fréquences de courpure des différents filtres**:
 - Filtre d'entrée (R5 associée à C1) 
