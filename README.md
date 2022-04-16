@@ -197,7 +197,7 @@ Nous avons imprimé deux pièces 3D afin de réaliser ce banc de test. Ce sont d
 Nous avons fait plusieurs mesures en flexion, en donnant à notre capteur une forme concave puis convexe. Nous utilisons un crayon a papier de type critérium avec une mine HB.
 <p align="center">
 <img width="425" alt="image" src="https://user-images.githubusercontent.com/98837554/163680895-0f0f1b88-399c-4482-af65-45ff1b7ff46f.png">
-<img width="425" alt="image" src="https://user-images.githubusercontent.com/98837554/163680946-25f5141c-d18b-4687-a459-ead8596fb05c.png">
+<img width="440" alt="image" src="https://user-images.githubusercontent.com/98837554/163680946-25f5141c-d18b-4687-a459-ead8596fb05c.png">
 </p>
 
 ## 9. Datasheet <a id="NeuviemeSection"></a> 
