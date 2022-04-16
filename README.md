@@ -12,14 +12,14 @@ Nous avons donc décidé de fabriquer nous-même ce capteur et de le tester. Les
 * [1. Livrables](#PremiereSection)
 * [2. Matériel nécessaire](#DeuxiemeSection)
 * [3. Simulation sous LTspice](#TroisiemeSection)
-* [4. Application Android](#QuatriemeSection)
-* [5. KICAD](#CinquiemeSection)
-  * [5.1. Les composants](#CinquiemeSection1)
-  * [5.2. La schématique](#CinquiemeSection2)
-  * [5.3. Le placement des composants](#CinquiemeSection3)
-  * [5.4. La visualisation 3D](#CinquiemeSection4)
-* [6. Fabrication du PCB designer sur KICAD](#SixiemeSection)
-* [7. Code Arduino](#SeptiemeSection)
+* [4. Code Arduino](#SeptiemeSection)
+* [5. Application Android](#QuatriemeSection)
+* [6. KICAD](#CinquiemeSection)
+  * [6.1. Les composants](#CinquiemeSection1)
+  * [6.2. La schématique](#CinquiemeSection2)
+  * [6.3. Le placement des composants](#CinquiemeSection3)
+  * [6.4. La visualisation 3D](#CinquiemeSection4)
+* [7. Fabrication du PCB designer sur KICAD](#SixiemeSection)
 * [8. Banc de test](#HuigtiemeSection)
   * [8.1. Création du banc](#HuigtiemeSection1)
   * [8.2. Tests effectués](#HuigtiemeSection2)
@@ -112,7 +112,22 @@ En faisant varier C1, nous avons pu observer l'infuence de cette capacité sur l
 
 CONCLURE
 
-## 4. Application Android <a id="QuatriemeSection"></a>
+## 4. Code Arduino <a id="SeptiemeSection"></a> 
+
+L’objectif de ce projet est de mesurer une valeur de résistance. La première étape du code est donc de lire cette valeur. C’est pourquoi nous utilisons la fonction getResistance(int pin) qui permet de lire une valeur analogique sur le pin A0. Cette valeur est ensuite convertie en tension. Nous relions la valeur de la tension de sortie à la résistance en entrée du circuit.
+
+Une fois cette valeur récupérée, il faut l’afficher sur un écran OLED. Nous avons réfléchi à un menu que nous pourrions actualiser à l’aide d’un encodeur rotatoire.
+
+Notre menu est défini par une fonction updateMenu() dans lequel 4 cas sont observés. Le premier correspond à l'affichage de la résistance, le second de la date, le troisième de l’heure et le dernier est un mini jeu que nous détaillerons plus tard. Pour chaque « case » du menu, une action différente est effectuée. 
+
+L’encodeur rotatoire va avoir un rôle à jouer dans la sélection et l’affichage de ses fonctions. En effet, nous lions les pins CLK et SW de l’encodeur à la commande attachInterrupt(pin, fonction(), état). Chaque fois que l’état est déclenché, fonction() est appelée. Chaque fois que l’état du pin CLK passe de 0 à 1, la fonction doEncoder est appelée. Cette fonction incrémente la variable « menu » qui permet de choisir un des cas observés précédemment. De même, chaque fois que l’état de SW change, la fonction Action() est appelée. Cette fonction commande la variable « menuState » aux valeurs 1 et 0. Lorsque « menuState » == 0, la boucle loop() met à jour le menu en appelant updateMenu(). Lorsque « menuState » == 1, la boucle loop() rentre dans un des choix du menu en appelant executeAction(). 
+
+La fonction graphique est un mini-jeu dont le but est d’aller d’un bout à l’autre de l’écran. On redimensionne la valeur de la résistance sur l’écran OLED puis on augmente ou diminue la résistance pour aller plus haut ou plus bas et esquiver les traits bleus sur le chemin. Si nous touchons une ligne, nous avons perdu.
+
+Pour finir, nous ajoutons le module Bluetooth. Par l’intermédiaire de ce module, nous envoyons la valeur de la résistance à l’application créée sur MIT App Inventor.
+
+
+## 5. Application Android <a id="QuatriemeSection"></a>
 Nous avons ensuite cherché à afficher les valeurs de résistance du capteur sur un téléphone mobile Android. Pour cela nous avons crée une application grâce au site MIT App Inventor. 
 Notre interface comprend:
 - Un bouton de connexion au bluetooth et devient vert quand la connexion est établie ou rouge quand elle ne l'ai pas
@@ -126,9 +141,9 @@ Notre interface comprend:
 <img width="254" alt="image" src="https://user-images.githubusercontent.com/98837554/163391196-81fc7854-eb26-422d-8320-28e765e18411.png">
 </p>
 
-## 5. KICAD <a id="CinquiemeSection"></a>
+## 6. KICAD <a id="CinquiemeSection"></a>
 Nous avons modélisé notre shield PCB sur le logiciel KICAD. Pour cela nous avons **designer tous les composants du PCB et crée leur empreinte** (l'aplificateur, l'écran OLED, le module Bluetooth et l'encodeur rotatoire). Nous avons ensuite crée les **connexions** entre tous les composants et avec la carte Arduino sur le logiciel. Enfin nous avons **modélisé la carte PCB** et crée un **modèle 3D** de l'ensemble. 
-### 5.1. Les composants <a id="CinquiemeSection1"></a>
+### 6.1. Les composants <a id="CinquiemeSection1"></a>
 * L'amplificateur LTC1050
 
 <img width="300" alt="image" src="https://user-images.githubusercontent.com/98837554/163401160-f208acc8-349f-49ba-b0c7-000f3a158738.png">
@@ -146,25 +161,25 @@ Nous avons modélisé notre shield PCB sur le logiciel KICAD. Pour cela nous avo
 <img width="300" alt="image" src="https://user-images.githubusercontent.com/98837554/163401866-f06dca7b-75d8-41d6-840c-57c505550f2c.png">
 
 
-### 5.2. Schématique <a id="CinquiemeSection2"></a>
+### 6.2. Schématique <a id="CinquiemeSection2"></a>
 Une fois les composants crées nous les relions entre eux et avec les broches de la carte Arduino. 
 <p align="center">
 <img width="460" alt="image" src="https://user-images.githubusercontent.com/98837554/163402315-645bc16a-a514-4546-9f56-441b44ba24c2.png">
 </p>
 
-### 5.3. Placement des composants <a id="CinquiemeSection3"></a>
+### 6.3. Placement des composants <a id="CinquiemeSection3"></a>
 Nous plaçons ensuite les composants sur le shield et traçons les connexions de sorte que les fils ne se croisent pas. 
 <p align="center">
 <img width="371" alt="image" src="https://user-images.githubusercontent.com/98837554/163403713-bcfc0a7a-aec5-4fe9-b39b-f4e81aa0f183.png">
  </p>
 
-### 5.4. Visualisation 3D <a id="CinquiemeSection4"></a>
+### 6.4. Visualisation 3D <a id="CinquiemeSection4"></a>
 Nous avons enfin téléchargé les modèles 3D de nos composants afin de visualiser notre PCB en 3D. Cela nous permet aussi d'effectuer une dernière vérification et de voir qu'aucuns composants ne se chevauchent. 
 <p align="center">
 <img width="410" alt="image" src="https://user-images.githubusercontent.com/98837554/163404554-31852afe-2a49-4ad8-9f45-724db81acd6a.png">
 <p/>
 
-## 6. Fabrication du shield <a id="SixiemeSection"></a>
+## 7. Fabrication du shield <a id="SixiemeSection"></a>
 
 Avec l'aide de Catherine Crouzet, nous avons réalisé le PCB à partir d'une plaquette d'époxy recouverte d'une fine couche de cuivre.
 Premièrement nous avons imprimé la modélisation du PCB que nous avions faites sur le logiciel KICAD. Cela joue le rôle de masque lors de l'insolation de la plaquette sous UVs. A l'aide d'unrévélateur nous retirons la partie de la résine qui n'a pas été insolée. Ensuite, la plaquette est placée dans un bain de perchlorure de fer pour la gravure. Le cuivre non protégé par la résine s'enlève et nous obtenons le PCB tel que nous l'avions desingner sur KICAD. 
@@ -178,7 +193,7 @@ Nous avons ensuite percé notre PCB afin d'y insérer les différents composants
 * ⌀ 1.0mm : Pour les broches de connexion de la carte Arduino Uno et les différents modules (OLED, bluetooth, encodeur rotatoire)
 
 
-## 7. Code Arduino <a id="SeptiemeSection"></a> 
+
 
 
 
