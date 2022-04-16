@@ -84,7 +84,10 @@ Nous devons aussi prendre en compte les caractéristiques de la carte Arduino qu
 - Impédence maximale: 1kOhm-10kOhm
 - Fréquence d'échantillonage max: 15kHz
 
-Si nous utilisons l'Arduinon Uno à sa fréquence max (15kHz). La limite de repliement autrement appelée fréquence de Nyquist, est égale à la moitié de la fréquence d'échantillonage choisie, ici 15kHz, donc 7,5kHz. 
+Si nous utilisons l'Arduinon Uno à sa fréquence max (15kHz). La limite de repliement autrement appelée fréquence de Nyquist, est égale à la moitié de la fréquence d'échantillonage choisie, ici 15kHz, donc 7,5kHz. Sur la simulation ci-dessous, on peut voir qu'à une fréquence de 7,5kHz, on a un gain d'environ 30db. On peut donc déduire que l'attétuation est d'environ 110dB. 
+<p align="center">
+<img width="861" alt="image" src="https://user-images.githubusercontent.com/98837554/163683755-b982c7e0-2874-4655-bb76-e488bc722d65.png">
+</p>
 
 Nous avons ensuite calculé les **fréquences de courpure des différents filtres**:
 - Filtre d'entrée (R5 associée à C1) 
