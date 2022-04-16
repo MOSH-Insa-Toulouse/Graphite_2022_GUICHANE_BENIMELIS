@@ -199,6 +199,7 @@ Nous avons fait plusieurs mesures en flexion, en donnant à notre capteur une fo
 <img width="425" alt="image" src="https://user-images.githubusercontent.com/98837554/163680895-0f0f1b88-399c-4482-af65-45ff1b7ff46f.png">
 <img width="440" alt="image" src="https://user-images.githubusercontent.com/98837554/163680946-25f5141c-d18b-4687-a459-ead8596fb05c.png">
 </p>
+On remarque que la résistance diminue lorsqu'on donne une forme convexe à notre capteur et inversement pour le cas concave. Cela est dû au rapprochement ou à léloignement des molécules de graphite comme nous l'expliquions plus au plus haut. 
 
 ## 9. Datasheet <a id="NeuviemeSection"></a> 
 A l'aide de nos résultats obtenus lors de nos essais avec le banc de test, nous avons pu mettre au point une datasheet de notre capteur. Celle-ci se trouve dans les fichiers à télécharger. 
