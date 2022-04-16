@@ -77,7 +77,11 @@ Nous avons simulé notre circuit dans les **conditions nominales**, c'est à dir
 <p align="center">
 <img width="398" alt="image" src="https://user-images.githubusercontent.com/98837554/163636090-f7b55e91-c3a8-494e-a684-dcd89eaaba78.png">
 </p>
-De même sur ce graphe on remarque que **l'offset de l'amplificateur** opérationnel est de 0,5V. Cet offset est accecptable car
+Le capteur est fonctionnel et ne sature pas car la hauteur du plateau est à 1V (inférieur à 5V).
+
+La datasheet de l'amplificateur LTC1050C nous indique que sa tension d'offset est de l'ordre 5 µV et que le maximum d’offset de décalage est de l’ordre se 0,05µV/°C. Ces valeurs nous semblent acceptables. 
+En effet le gain de l’AOP est de 160 dB. Pour une tension d’entrée de 10mV, nous avons donc en sortie 106V. L’offset de sortie est 
+quant à lui de 50V. L’offset est donc négligeable et son incidence est donc acceptable
 
 L'incidence du **courrant d'entrée** de l'amplificateur est acceptable car: 
 
