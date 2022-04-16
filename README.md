@@ -92,23 +92,23 @@ Si nous utilisons l'Arduinon Uno à sa fréquence max (15kHz). La **limite de re
 Nous avons ensuite calculé les **fréquences de courpure des différents filtres**:
 - Filtre d'entrée (R5 associée à C1) 
 <p align="center">
-<img width="960" alt="simulation_ac_filtre1" src="https://user-images.githubusercontent.com/98837554/163541380-68267eba-4612-4d09-b9eb-7c492514d345.png">
+<img width="800" alt="simulation_ac_filtre1" src="https://user-images.githubusercontent.com/98837554/163541380-68267eba-4612-4d09-b9eb-7c492514d345.png">
 </p>
 On obtient à -3dB, une fréquence de coupure de 20Hz ce qui fonctionne bien pour l'entrée du capteur. 
 
 - Filtre actif (R3 associée à C4) 
 <p align="center">
-<img width="959" alt="simulation_ac_filtre2" src="https://user-images.githubusercontent.com/98837554/163541957-834a4d79-2858-4d12-aa25-55f55f7cb285.png">
+<img width="800" alt="simulation_ac_filtre2" src="https://user-images.githubusercontent.com/98837554/163541957-834a4d79-2858-4d12-aa25-55f55f7cb285.png">
 </p>
 On obtient à -3dB, une fréquence de coupure de 2Hz qui permet de couper le bruit induit par le secteur 50Hz.
 
 - Filtre de sortie (R6 associée à C2) 
 <p align="center">
-<img width="959" alt="simulation_ac_filtre3" src="https://user-images.githubusercontent.com/98837554/163542460-0e609e20-6055-4db2-8078-0ccc3461a577.png">
+<img width="800" alt="simulation_ac_filtre3" src="https://user-images.githubusercontent.com/98837554/163542460-0e609e20-6055-4db2-8078-0ccc3461a577.png">
 </p>
 On obtient à -3dB, une fréquence de coupure de 1,5kHz ce qui fonctionne bien pour l'échantillonage de l'ARDUINO.
 
-En faisant varier C1, nous avons pu observer l'infuence de cette capacité sur l'atténuation globale d'un bruit de courant de 50Hz. 
+En faisant varier C1, nous avons pu observer l'infuence de cette capacité sur **l'atténuation globale d'un bruit de courant de 50Hz**. 
 - C1= 1u:
 <p align="center">
 <img width="529" alt="image" src="https://user-images.githubusercontent.com/98837554/163641065-caad8153-dde2-4825-a69c-691940c0eabf.png">
