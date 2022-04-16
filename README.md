@@ -73,10 +73,10 @@ Nous avons simulé notre circuit dans les **conditions nominales**, c'est à dir
 </p>
 Le capteur est fonctionnel et ne sature pas car la hauteur du plateau est à 1V (inférieur à 5V).
 
-La datasheet de l'amplificateur LTC1050C nous indique que sa tension d'offset est de l'ordre 5 µV et que le maximum d’offset de décalage est de l’ordre se 0,05µV/°C. Ces valeurs nous semblent acceptables. 
-En effet le gain de l’AOP est de 160 dB. Pour une tension d’entrée de 10mV, nous avons donc en sortie 106V. L’offset de sortie est quant à lui de 50V. L’offset de l'amplificateur est donc négligeable et son incidence est donc acceptable. 
+La datasheet de l'amplificateur LTC1050C nous indique que sa **tension d'offset** est de l'ordre 5 µV et que le **maximum d’offset de décalage** est de l’ordre se 0,05µV/°C. Ces valeurs nous semblent acceptables. 
+En effet le **gain de l’AOP** est de 160 dB. Pour une tension d’entrée de 10mV, nous avons donc en sortie 106V. L’offset de sortie est quant à lui de 50V. L’offset de l'amplificateur est donc négligeable et son incidence est donc acceptable. 
 
-De même le courant d’offset indiqué dans la datasheet est de 160 pA. Cette valeur semble acceptable devant le courant circulant dans R1 par exemplequi est de l’ordre de 100 nA. Cette valeur est 625 fois supérieure à la tension d’offset qu’on peut donc négliger. 
+De même le **courant d’offset** indiqué dans la datasheet est de 160 pA. Cette valeur semble acceptable devant le courant circulant dans R1 par exemple qui est de l’ordre de 100 nA. Cette valeur est 625 fois supérieure à la tension d’offset qu’on peut donc négliger. 
 
 Nous devons aussi prendre en compte les caractéristiques de la carte Arduino que nous utilisons:
 - Résolution: 10-13 bits
@@ -84,7 +84,7 @@ Nous devons aussi prendre en compte les caractéristiques de la carte Arduino qu
 - Impédence maximale: 1kOhm-10kOhm
 - Fréquence d'échantillonage max: 15kHz
 
-Si nous utilisons l'Arduinon Uno à sa fréquence max (15kHz). La limite de repliement autrement appelée fréquence de Nyquist, est égale à la moitié de la fréquence d'échantillonage choisie, ici 15kHz, donc 7,5kHz. Sur la simulation ci-dessous, on peut voir qu'à une fréquence de 7,5kHz, on a un gain d'environ 30db. On peut donc déduire que l'attétuation est d'environ 110dB. 
+Si nous utilisons l'Arduinon Uno à sa fréquence max (15kHz). La **limite de repliement** autrement appelée fréquence de Nyquist, est égale à la moitié de la fréquence d'échantillonage choisie, ici 15kHz, donc 7,5kHz. Sur la simulation ci-dessous, on peut voir qu'à une fréquence de 7,5kHz, on a un gain d'environ 30db. On peut donc déduire que l'attétuation est d'environ 110dB. 
 <p align="center">
 <img width="861" alt="image" src="https://user-images.githubusercontent.com/98837554/163683755-b982c7e0-2874-4655-bb76-e488bc722d65.png">
 </p>
@@ -117,8 +117,6 @@ En faisant varier C1, nous avons pu observer l'infuence de cette capacité sur l
 <p align="center">
 <img width="572" alt="image" src="https://user-images.githubusercontent.com/98837554/163643246-57700a0b-bc04-400c-982a-ee6651a95a20.png">
 </p>
-
-CONCLURE
 
 ## 4. Code Arduino <a id="SeptiemeSection"></a> 
 
