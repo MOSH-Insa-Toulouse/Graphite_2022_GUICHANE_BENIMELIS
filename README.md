@@ -52,7 +52,7 @@ Afin de mener à bien ce projet nous avons eu besoin de:
 
 
 ## 3. Simulation Sous LTspice <a id="TroisiemeSection"></a>
-Le capteur de graphite que nous voulons créer délivre un signal de courant très faible, d'environ 100 nA. Le microcontroleur ne peut donc pas mesurer directement ce courant. Nous choisissons donc d'utiliser un amplificateur transimpédance suivi de plusieurs filtres afin que ce faible signal ne soit pas perturbé par le bruit.
+Le capteur de graphite que nous voulons créer délivre un signal de courant très faible, d'environ 100 nA. Le microcontroleur ne peut donc pas mesurer directement ce courant. Nous choisissons donc d'utiliser un amplificateur transimpédance pour convertir une variation de courant en variation de tension suivi de plusieurs filtres afin que ce faible signal ne soit pas perturbé par le bruit.
 
 Nous devons aussi prendre en compte les caractéristiques de la carte Arduino que nous utilisons:
 - Résolution: 10-12 bits
