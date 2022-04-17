@@ -1,7 +1,7 @@
 # Graphite_2022_GUICHANE_BENIMELIS
 Projet "Capteur de Graphite", dans le contexte de l'UF **"Du capteur au banc de test"**, département de Génie Physique de l'INSA Toulouse.
 ***
-L'objectif de ce projet est de reprendre les recherches scientifiques sur un capteur low-tech, le **"Pencil Draw Strain Gauges"**. Le fonctionnement de ce capteur est simple. Il suffit de dessiner au crayon à papier sur une feuille et d'appliquer ensuite une contrainte sur celle-ci. La contrainte appliquée va modifiée la distance entre les particules de graphique et par conséquent la résistance au passage du courant. Nous avons donc notre capteur. 
+L'objectif de ce projet est de reprendre les recherches scientifiques sur un capteur low-tech, le **"Pencil Draw Strain Gauges"**. Le fonctionnement de ce capteur est simple. Il suffit de dessiner au crayon à papier sur une feuille et d'appliquer ensuite une contrainte sur celle-ci. La contrainte appliquée va modifier la distance entre les particules de graphique et par conséquent la résistance au passage du courant. Nous avons donc notre capteur. 
 
 <p align="center">
 <img width="466" alt="papier graphite" src="https://user-images.githubusercontent.com/98837554/163389962-011f1dfb-cacf-4c84-9b36-a27d5e313081.png">
@@ -52,7 +52,7 @@ Afin de mener à bien ce projet nous avons eu besoin de:
 
 
 ## 3. Simulation Sous LTspice <a id="TroisiemeSection"></a>
-Le capteur de graphite que nous voulons créer délivre un signal de courant très faible, d'environ 100 nA. Le microcontroleur ne peut donc pas mesurer directement ce courant. Nous choisissons donc d'utiliser un amplificateur transimpédance pour convertir une variation de courant en variation de tension suivi de plusieurs filtres afin que ce faible signal ne soit pas perturbé par le bruit.
+Le capteur de graphite que nous voulons créer délivre un signal de courant très faible, d'environ 100 nA. Le microcontroleur ne peut donc pas mesurer directement ce courant. Nous choisissons donc d'utiliser un amplificateur transimpédance pour convertir une variation de courant en variation de tension et l'amplifier, suivi de plusieurs filtres afin que ce faible signal ne soit pas perturbé par le bruit.
 
 Voici le schéma que nous avons réalisé:
 <p align="center">
@@ -67,7 +67,7 @@ Voici les fonctionnalités des différents composants:
 - C2 avec R6 forment un filtre de sortie 
 - C3 filtre le bruit de l'alimentation
 
-Nous avons simulé notre circuit dans les **conditions nominales**, c'est à dire sans bruit. Voici la réponse de notre circuit:
+Nous avons simulé notre circuit dans les **conditions nominales**. Voici la réponse de notre circuit:
 <p align="center">
 <img width="398" alt="image" src="https://user-images.githubusercontent.com/98837554/163636090-f7b55e91-c3a8-494e-a684-dcd89eaaba78.png">
 </p>
@@ -84,7 +84,7 @@ Nous devons aussi prendre en compte les caractéristiques de la carte Arduino qu
 - Impédence maximale: 1kOhm-10kOhm
 - Fréquence d'échantillonage max: 15kHz
 
-Si nous utilisons l'Arduinon Uno à sa fréquence max (15kHz). La **limite de repliement** autrement appelée fréquence de Nyquist, est égale à la moitié de la fréquence d'échantillonage choisie, ici 15kHz, donc 7,5kHz. Sur la simulation ci-dessous, on peut voir qu'à une fréquence de 7,5kHz, on a un gain d'environ 30db. On peut donc déduire que l'attétuation est d'environ 110dB. 
+Nous utilisons l'Arduinon Uno à sa fréquence max (15kHz). La **limite de repliement** autrement appelée fréquence de Nyquist, est égale à la moitié de la fréquence d'échantillonage choisie, ici 15kHz, soit à 7,5kHz. Sur la simulation ci-dessous, on peut voir qu'à une fréquence de 7,5kHz, on a un gain d'environ 30db. On peut donc déduire que l'attétuation est d'environ 110dB. 
 <p align="center">
 <img width="861" alt="image" src="https://user-images.githubusercontent.com/98837554/163683755-b982c7e0-2874-4655-bb76-e488bc722d65.png">
 </p>
@@ -126,7 +126,7 @@ Une fois cette valeur récupérée, il faut l’afficher sur un écran OLED. Nou
 
 Notre menu est défini par une fonction updateMenu() dans lequel 4 cas sont observés. Le premier correspond à l'affichage de la résistance, le second de la date, le troisième de l’heure et le dernier est un mini jeu que nous détaillerons plus tard. Pour chaque « case » du menu, une action différente est effectuée. 
 
-L’encodeur rotatoire va avoir un rôle à jouer dans la sélection et l’affichage de ses fonctions. En effet, nous lions les pins CLK et SW de l’encodeur à la commande attachInterrupt(pin, fonction(), état). Chaque fois que l’état est déclenché, fonction() est appelée. Chaque fois que l’état du pin CLK passe de 0 à 1, la fonction doEncoder est appelée. Cette fonction incrémente la variable « menu » qui permet de choisir un des cas observés précédemment. De même, chaque fois que l’état de SW change, la fonction Action() est appelée. Cette fonction commande la variable « menuState » aux valeurs 1 et 0. Lorsque « menuState » == 0, la boucle loop() met à jour le menu en appelant updateMenu(). Lorsque « menuState » == 1, la boucle loop() rentre dans un des choix du menu en appelant executeAction(). 
+L’encodeur rotatoire va avoir un rôle à jouer dans la sélection et l’affichage de ces fonctions. En effet, nous lions les pins CLK et SW de l’encodeur à la commande attachInterrupt(pin, fonction(), état). Chaque fois que l’état est déclenché, fonction() est appelée. Chaque fois que l’état du pin CLK passe de 0 à 1, la fonction doEncoder est appelée. Cette fonction incrémente la variable « menu » qui permet de choisir un des cas observés précédemment. De même, chaque fois que l’état de SW change, la fonction Action() est appelée. Cette fonction commande la variable « menuState » aux valeurs 1 et 0. Lorsque « menuState » == 0, la boucle loop() met à jour le menu en appelant updateMenu(). Lorsque « menuState » == 1, la boucle loop() rentre dans un des choix du menu en appelant executeAction(). 
 
 La fonction graphique est un mini-jeu dont le but est d’aller d’un bout à l’autre de l’écran. On redimensionne la valeur de la résistance sur l’écran OLED puis on augmente ou diminue la résistance pour aller plus haut ou plus bas et esquiver les traits bleus sur le chemin. Si nous touchons une ligne, nous avons perdu.
 
@@ -136,10 +136,10 @@ Pour finir, nous ajoutons le module Bluetooth. Par l’intermédiaire de ce modu
 ## 5. Application Android <a id="QuatriemeSection"></a>
 Nous avons ensuite cherché à afficher les valeurs de résistance du capteur sur un téléphone mobile Android. Pour cela nous avons crée une application grâce au site MIT App Inventor. 
 Notre interface comprend:
-- Un bouton de connexion au bluetooth et devient vert quand la connexion est établie ou rouge quand elle ne l'ai pas
+- Un bouton de connexion au bluetooth qui devient vert quand la connexion est établie ou rouge quand elle ne l'est pas
 - Un menu déroulant qui permet de choisir ce que l'on veut afficher (valeur de la résistance, graphe de la résistance en fonction du temps ou les deux)
 - La valeur de la résistance du capteur de graphène
-- Un graphe ou s'affiche le tracé de la résistance du capteur en fonction du temps
+- Un graphe où s'affiche le tracé de la résistance du capteur en fonction du temps
 - Un bouton "Reset" qui permet d'effacer le graphe 
 - Une information sur les bits contenus dans le buffer
 
@@ -148,7 +148,7 @@ Notre interface comprend:
 </p>
 
 ## 6. KICAD <a id="CinquiemeSection"></a>
-Nous avons modélisé notre shield PCB sur le logiciel KICAD. Pour cela nous avons **designer tous les composants du PCB et crée leur empreinte** (l'aplificateur, l'écran OLED, le module Bluetooth et l'encodeur rotatoire). Nous avons ensuite crée les **connexions** entre tous les composants et avec la carte Arduino sur le logiciel. Enfin nous avons **modélisé la carte PCB** et crée un **modèle 3D** de l'ensemble. 
+Nous avons modélisé notre shield PCB sur le logiciel KICAD. Pour cela nous avons **designé tous les composants du PCB et créé leur empreinte** (l'aplificateur, l'écran OLED, le module Bluetooth et l'encodeur rotatoire). Nous avons ensuite créé les **connexions** entre tous les composants et avec la carte Arduino sur le logiciel. Enfin nous avons **modélisé la carte PCB** et créé un **modèle 3D** de l'ensemble. 
 ### 6.1. Les composants <a id="CinquiemeSection1"></a>
 * L'amplificateur LTC1050
 
@@ -168,7 +168,7 @@ Nous avons modélisé notre shield PCB sur le logiciel KICAD. Pour cela nous avo
 
 
 ### 6.2. Schématique <a id="CinquiemeSection2"></a>
-Une fois les composants crées nous les relions entre eux et avec les broches de la carte Arduino. 
+Une fois les composants créés nous les relions entre eux et avec les broches de la carte Arduino. 
 <p align="center">
 <img width="460" alt="image" src="https://user-images.githubusercontent.com/98837554/163402315-645bc16a-a514-4546-9f56-441b44ba24c2.png">
 </p>
@@ -180,7 +180,7 @@ Nous plaçons ensuite les composants sur le shield et traçons les connexions de
  </p>
 
 ### 6.4. Visualisation 3D <a id="CinquiemeSection4"></a>
-Nous avons enfin téléchargé les modèles 3D de nos composants afin de visualiser notre PCB en 3D. Cela nous permet aussi d'effectuer une dernière vérification et de voir qu'aucuns composants ne se chevauchent. 
+Nous avons, enfin, téléchargé les modèles 3D de nos composants afin de visualiser notre PCB en 3D. Cela nous permet aussi d'effectuer une dernière vérification et de voir qu'aucuns composants ne se chevauchent. 
 <p align="center">
 <img width="410" alt="image" src="https://user-images.githubusercontent.com/98837554/163404554-31852afe-2a49-4ad8-9f45-724db81acd6a.png">
 <p/>
@@ -188,7 +188,7 @@ Nous avons enfin téléchargé les modèles 3D de nos composants afin de visuali
 ## 7. Fabrication du shield <a id="SixiemeSection"></a>
 
 Avec l'aide de Catherine Crouzet, nous avons réalisé le PCB à partir d'une plaquette d'époxy recouverte d'une fine couche de cuivre.
-Premièrement nous avons imprimé la modélisation du PCB que nous avions faites sur le logiciel KICAD. Cela joue le rôle de masque lors de l'insolation de la plaquette sous UVs. A l'aide d'unrévélateur nous retirons la partie de la résine qui n'a pas été insolée. Ensuite, la plaquette est placée dans un bain de perchlorure de fer pour la gravure. Le cuivre non protégé par la résine s'enlève et nous obtenons le PCB tel que nous l'avions desingner sur KICAD. 
+Premièrement nous avons imprimé la modélisation du PCB que nous avions faite sur le logiciel KICAD. Cela joue le rôle de masque lors de l'insolation de la plaquette sous UVs. A l'aide d'unrévélateur nous retirons la partie de la résine qui n'a pas été insolée. Ensuite, la plaquette est placée dans un bain de perchlorure de fer pour la gravure. Le cuivre non protégé par la résine s'enlève et nous obtenons le PCB tel que nous l'avions designé sur KICAD. 
 Pour éliminer les dernières traces de résine, on lave le PCB à l'acétone. 
 <p align="center">
 <img width="300" alt="image" src="https://user-images.githubusercontent.com/98837554/163410624-d3a69000-6d83-496a-a13e-ba1b7dd018cd.png"> <img width="300" alt="image" src="https://user-images.githubusercontent.com/98837554/163410525-d537f93b-4770-4442-b086-9202968aa3f9.png">
@@ -199,16 +199,10 @@ Nous avons ensuite percé notre PCB afin d'y insérer les différents composants
 * ⌀ 1.0mm : Pour les broches de connexion de la carte Arduino Uno et les différents modules (OLED, bluetooth, encodeur rotatoire)
 
 
-
-
-
-
-
-
 ## 8. Banc de test <a id="HuigtiemeSection"></a> 
 ### 8.1. Banc de test <a id="HuigtiemeSection1"></a> 
 Nous avons imaginé un banc de test afin de pouvoir tester notre capteur. Nous utilisons un rail sur lequel nous rajoutons deux supports. Entre ces-derniers nous mettrons notre capteur sur une réglette flexible. En faisant varier la distance entre les deux supports, la réglette flexible se courbe. Nous relevons cette courbure et la résistance du capteur associée.
-Nous avons imprimé deux pièces 3D afin de réaliser ce banc de test. Ce sont des support pour la réglette flexibles. La partie arrière est légèrement inclinée afin que la réglette ne parte pas lors de la flexion.  
+Nous avons imprimé deux pièces 3D afin de réaliser ce banc de test. Ce sont des supports pour la réglette flexible. La partie arrière est légèrement inclinée afin que la réglette ne parte pas lors de la flexion.  
 <p align="center">
 <img width="300" alt="image" src="https://user-images.githubusercontent.com/98837554/163570728-51250161-7a48-498d-9d0b-daf20a6fe5a1.png">
 <img width="300" alt="image" src="https://user-images.githubusercontent.com/98837554/163624850-82fe3e1e-3f73-463d-8121-c7a0c9c3ff4d.png">
@@ -220,7 +214,7 @@ Nous avons fait plusieurs mesures en flexion, en donnant à notre capteur une fo
 <img width="425" alt="image" src="https://user-images.githubusercontent.com/98837554/163680895-0f0f1b88-399c-4482-af65-45ff1b7ff46f.png">
 <img width="440" alt="image" src="https://user-images.githubusercontent.com/98837554/163680946-25f5141c-d18b-4687-a459-ead8596fb05c.png">
 </p>
-On remarque que la résistance diminue lorsqu'on donne une forme convexe à notre capteur et inversement pour le cas concave. Cela est dû au rapprochement ou à léloignement des molécules de graphite comme nous l'expliquions plus au plus haut. 
+On remarque que la résistance diminue lorsqu'on donne une forme convexe à notre capteur et inversement pour le cas concave. Cela est dû au rapprochement ou à l'éloignement des molécules de graphite comme nous l'expliquions plus au plus haut. 
 
 ## 9. Datasheet <a id="NeuviemeSection"></a> 
 A l'aide de nos résultats obtenus lors de nos essais avec le banc de test, nous avons pu mettre au point une datasheet de notre capteur. Celle-ci se trouve dans les fichiers à télécharger. 
