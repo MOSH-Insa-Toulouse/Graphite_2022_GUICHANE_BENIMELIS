@@ -73,8 +73,7 @@ Nous avons simulé notre circuit dans les **conditions nominales**. Voici la ré
 </p>
 Le capteur est fonctionnel et ne sature pas car la hauteur du plateau est à 1V (inférieur à 5V).
 
-La datasheet de l'amplificateur LTC1050C nous indique que sa **tension d'offset** est de l'ordre 5 µV et que le **maximum d’offset de décalage** est de l’ordre se 0,05µV/°C. Ces valeurs nous semblent acceptables. 
-En effet le **gain de l’AOP** est de 160 dB. Pour une tension d’entrée de 10mV, nous avons donc en sortie 106V. L’offset de sortie est quant à lui de 50V. L’offset de l'amplificateur est donc négligeable et son incidence est donc acceptable. 
+La datasheet de l'amplificateur LTC1050C nous indique que sa **tension d'offset** est de l'ordre 5 µV et que le **maximum d’offset de décalage** est de l’ordre se 0,05µV/°C. Ces valeurs nous semblent acceptables car nous mesurons une tension de 10 mV aux bornes de R1. Cette valeur est 2000 fois supérieure à la tension d’offset de l’amplificateur. Nous pouvons donc choisir cet amplificateur sans problème.
 
 De même le **courant d’offset** indiqué dans la datasheet est de 160 pA. Cette valeur semble acceptable devant le courant circulant dans R1 par exemple qui est de l’ordre de 100 nA. Cette valeur est 625 fois supérieure à la tension d’offset qu’on peut donc négliger. 
 
